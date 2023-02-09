@@ -103,6 +103,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'my-sql': { # : MySQL 5.7 or later is required (found 5.6.51)
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ['MYSQL_DB'],
+        'USER':  os.environ['MYSQL_USER'],
+        'PASSWORD': os.environ['MYSQL_PASSWORD'],
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 

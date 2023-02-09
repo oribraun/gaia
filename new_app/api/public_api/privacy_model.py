@@ -17,5 +17,6 @@ class PrivacyModelApi(BasePublicApi):
             'err': 0,
             'errMessage': '',
             'suggested_prompt': prompt + ' suggested from privacy model',
+            'suggested_model': ' Privacy model V1',
             'pass_privacy': False,
         }, safe=False)
