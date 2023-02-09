@@ -11,19 +11,22 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import dotenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-print('PROJECT_ROOT', os.path.join(PROJECT_ROOT, 'templates'))
 
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!(hpygz8mdlkw1l=zbtg1dhylj872krl05zn9kz_c(+8r67$7-'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -158,10 +161,12 @@ ALLOWED_HOSTS=['*']
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:4200'
+    'http://localhost:4200',
+    'https://chat.openai.com'
 ]
 CORS_ALLOWED_ORIGIN = [
-    'http://localhost:4200'
+    'http://localhost:4200',
+    'https://chat.openai.com'
 ]
 
 CORS_ALLOW_METHODS = [

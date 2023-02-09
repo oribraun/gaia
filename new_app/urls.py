@@ -4,6 +4,7 @@ from new_app.api.user_auth_api.change_password import ChangePasswordApi
 from new_app.views.get_data import get_data
 from new_app.views.password_reset_confirm import PasswordResetConfirmView
 from new_app.api.public_api.public import PublicApi
+from new_app.api.public_api.privacy_model import PrivacyModelApi
 from new_app.api.external_auth_api.prompt_optimizer import PromptOptimizerApi
 from new_app.api.user_auth_api.get_user import UserAPI
 from new_app.api.user_auth_api.upload_file import UploadFileApi
@@ -28,5 +29,5 @@ urlpatterns = [
     re_path(rf'^{API_BASE}prompt_optimizer', PromptOptimizerApi.as_view()),
     re_path(rf'^{API_BASE}upload', UploadFileApi.as_view()),
     re_path(rf'^{API_BASE}analyze', AnalyzeApi.as_view()),
-    re_path(rf'^{API_BASE}public', PublicApi.as_view()),
+    re_path(rf'^{API_BASE}public', PrivacyModelApi.as_view()),
 ]
