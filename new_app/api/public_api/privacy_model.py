@@ -16,7 +16,7 @@ class PrivacyModelApi(BasePublicApi):
         return JsonResponse({
             'err': 0,
             'errMessage': '',
-            'suggested_prompt': prompt + ' suggested from privacy model',
+            'suggested_prompt': prompt + ' suggested',
             'suggested_model': ' Privacy model V1',
             'pass_privacy': False,
         }, safe=False)
