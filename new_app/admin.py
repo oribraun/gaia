@@ -19,7 +19,6 @@ class MyUserAdmin(UserAdmin):
     )
 
 UserAdmin.list_display += ('role',)  # don't forget the commas
-print('UserAdmin.list_display', UserAdmin.list_display)
 UserAdmin.list_filter += ('role',)
 UserAdmin.fieldsets += (('Extra Fields', {'fields': ('role', )}),)
 admin.site.register(User, UserAdmin)
