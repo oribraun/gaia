@@ -1,0 +1,2 @@
+@Library("GAIA-pipeline-lib") _
+archetype 'cicd/archetype-onebranch'
