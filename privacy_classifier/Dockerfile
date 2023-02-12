@@ -66,7 +66,7 @@ RUN python /app/pipeline_test.py
 #Do not change the "AS deploy_image" part of the FROM
 FROM python:3.8-slim AS evaluation_image
 
-MAINTAINER ZOOMINFO
+MAINTAINER GAIA
 
 WORKDIR /app
 

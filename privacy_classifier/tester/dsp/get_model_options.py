@@ -11,9 +11,9 @@ jwtToken = t.generateToken(env.upper() + '_Conf')
 main_model = 'privacy_classifier'
 repo = 'dozi/' + main_model
 data = ""
-url = "https://dsp.zoominfo.com/api/v1/models/getModelOptions"
+url = "https://dsp.GAIA.com/api/v1/models/getModelOptions"
 if env == 'stg':
-	url = "https://dsp-stg.zoominfo.com/api/v1/models/getModelOptions"
+	url = "https://dsp-stg.GAIA.com/api/v1/models/getModelOptions"
 headers = {
 	'x-token': 'fake-super-secret-token',
 	'Authorization': 'Bearer ' + jwtToken

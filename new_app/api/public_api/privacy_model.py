@@ -13,6 +13,8 @@ class PrivacyModelApi(BasePublicApi):
     def post(self, request, format=None):
         boolean = random.choice([True, False])
         prompt = request.data['prompt']
+
+
         return JsonResponse({
             'err': 0,
             'errMessage': '',

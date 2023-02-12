@@ -35,5 +35,4 @@ For more information about:
 
 **Version** 1.1
 
-Copyright (c) 2022 ZoomInfo.  All rights reserved.
 """

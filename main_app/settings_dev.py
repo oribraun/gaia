@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'main_app.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'main': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
@@ -116,6 +116,8 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+default_database = os.environ.get('DJANGO_DATABASE', 'main')
+DATABASES['default'] = DATABASES[default_database]
 
 
 # Password validation
@@ -170,11 +172,12 @@ ALLOWED_HOSTS=['*']
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:4200',
-    'https://chat.openai.com'
+    'https://chat.openai.com',
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
     'http://localhost:4200',
-    'https://chat.openai.com'
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 
 CORS_ALLOW_METHODS = [

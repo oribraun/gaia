@@ -100,20 +100,21 @@ WSGI_APPLICATION = 'main_app.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'main': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
     'my-sql': { # : MySQL 5.7 or later is required (found 5.6.51)
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['MYSQL_DB'],
+        'NAME':  os.environ['MYSQL_DB'],
         'USER':  os.environ['MYSQL_USER'],
         'PASSWORD': os.environ['MYSQL_PASSWORD'],
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
-
+default_database = os.environ.get('DJANGO_DATABASE', 'main')
+DATABASES['default'] = DATABASES[default_database]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -167,3 +168,12 @@ AUTH_USER_MODEL="new_app.User"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 PASSWORD_RESET_EXPIRATION_TIME = 1 * 60 * 10 # 10 minutes
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = [
+    'https://chat.openai.com',
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+]
+CORS_ALLOWED_ORIGIN = [
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+]

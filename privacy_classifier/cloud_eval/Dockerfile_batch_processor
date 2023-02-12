@@ -70,7 +70,7 @@ RUN python /app/pipeline_test.py
 #Do not change the "AS deploy_image" part of the FROM
 FROM ${DEPLOY_IMAGE_SOURCE} AS deploy_image
 
-MAINTAINER ZOOMINFO
+MAINTAINER GAIA
 
 WORKDIR /app
 
