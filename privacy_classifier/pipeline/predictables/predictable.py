@@ -22,9 +22,10 @@ class PrivacyClassifierPredictable(ZIDS_Predictable):
     @endcode
     """
 
-    def __init__(self) -> None:
+    def __init__(self, text='') -> None:
         """! Initializer for PrivacyClassifierPredictable"""
         ##
         # @hidecallgraph @hidecallergraph
         super().__init__()
+        self.text = text
 

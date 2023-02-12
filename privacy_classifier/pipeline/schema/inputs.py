@@ -2,6 +2,7 @@
 # coding: utf-8
 
 from pydantic.main import BaseModel
+from typing import Optional,Any
 
 ##
 # @file
@@ -10,20 +11,6 @@ from pydantic.main import BaseModel
 #        Using Pydantic's base class that can validate their input class.
 
 class PrivacyClassifierInputs(BaseModel):
-    """! For example :
-    @code
-    class <my-new-project>Inputs(BaseModel):
-       email: str = ""
-       threshold: Optional[float]
-       hints: Optional[List[EmailHint]]
-    @endcode
-    Another example:
-    @code
-    class <my-new-project>Inputs(BaseModel):
-        html_content: str
-        source: str
-        queue_name: str
-        title: str
-    @endcode
-    """
-    pass
+
+    text:str
+    hints:Optional[Any] = None

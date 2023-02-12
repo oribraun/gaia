@@ -68,18 +68,6 @@ class PrivacyClassifierPostprocess(ZIDS_Postprocessor):
             NotImplementedError
 
         """
-
-        ##
-        # Implementation example:
-        # @code{.py}
-        # prob = predictable[-1]
-        # pred = False
-        #
-        # if prob > self.artifacts.threshold:
-        #     pred = True
-        #
-        # return PrivacyClassifierOutputs(pred=pred, prob=prob)
-        # @endcode
-
-        raise NotImplementedError
+        out = {'text':predictable.text, 'pred': predictable.pred, 'prob': predictable.prob}
+        return out
 

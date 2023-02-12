@@ -7,6 +7,7 @@ from dsframework.base.pipeline.preprocessor import ZIDS_Preprocessor
 from ..schema.inputs import PrivacyClassifierInputs
 from ..schema.outputs import PrivacyClassifierOutputs
 from ..artifacts.shared_artifacts import PrivacyClassifierSharedArtifacts
+from ..predictables import PrivacyClassifierPredictable
 
 ##
 # @file
@@ -66,54 +67,14 @@ class PrivacyClassifierPreprocess(ZIDS_Preprocessor):
         """
         pass
 
-    def connect(self):
-        """! Connect method, called from ZIDS_Component.__init__().
+    def reset(self, raw_input: Any):
+        self.text = raw_input.text
+        self.hints = raw_input.hints
+        self.splitted = []
+        self._split_text()
 
-        Method not implemented, ready for your implementation, see more information in class description.
-        """
-
-        ##
-        #@hidecallgraph @hidecallergraph
-
-        super().connect()
-
-    def reset(self, text: str = '', hints: List[Any] = []):
-        """! Reset data members, called from ZIDS_Component.execute() method.
-
-        Method not implemented, see more information in class description.
-
-        Args:
-            text: str
-            hints: List[Any]
-        """
-
-        ##
-        # For example:
-        # @code {.py}
-        # def reset(self, text: str, raw_input: Any):
-        #
-        #     self.text = ""
-        #     self.hints = raw_input.hints
-        #
-        # @endcode
-
-        pass
-
-    def get_from_regex(self):
-        """! Get a predefined key from common/regex_handler.py
-
-        Method not implemented, ready for your implementation.
-        """
-        ##
-        # For example:
-        # @code{.py}
-        # from dsframework.base.common import RegexHandler
-        #
-        # def get_from_regex(self):
-        #    return RegexHandler.url.findall("www.zoominfo.com")
-        # @endcode
-
-        pass
+    def _split_text(self):
+        self.splitted = self.text.strip().split('\n\n')
 
     def preprocess(self, raw_input: Any):
         """! Implement method to return a list of predictable objects.
@@ -127,13 +88,7 @@ class PrivacyClassifierPreprocess(ZIDS_Preprocessor):
         Raises:
             NotImplementedError
         """
+        self.reset(raw_input)
 
-        ##
-        # For example, minimum return as-is:
-        # @code{.py}
-        # def preprocess(self, raw_input: Any):
-        #
-        #     return raw_input
-        # @endcode
-
-        raise NotImplementedError
+        return [PrivacyClassifierPredictable(text = t) for t in self.splitted]
+         

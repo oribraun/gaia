@@ -40,5 +40,5 @@ if __name__ == '__main__':
     #     data = {}
     # @endcode
 
-    output = p.execute()
+    output = p.execute(text='it works\n\n well I hope  \n\n')
     print(output)
