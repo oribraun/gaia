@@ -60,11 +60,11 @@ class PrivacyClassifierPipeline(ZIDS_Pipeline):
         self.preprocessor = PrivacyClassifierPreprocess(artifacts=self.artifacts)
 
         ## Instantiate and add predictor to the pipeline
-        self.predictor = PrivacyClassifierPredictor()
+        self.predictor = PrivacyClassifierPredictor(artifacts=self.artifacts)
         self.add_component(self.predictor)
 
         ## Instantiate and add forcer to the pipeline
-        self.forcer = PrivacyClassifierForcer()
+        self.forcer = PrivacyClassifierForcer(artifacts=self.artifacts)
         self.add_component(self.forcer)
 
         ## Instantiate postprocessor - Automatically added to the pipeline
