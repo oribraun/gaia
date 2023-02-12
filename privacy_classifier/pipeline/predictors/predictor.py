@@ -27,5 +27,8 @@ class PrivacyClassifierPredictor(ZIDS_Component):
 
     def execute(self, predictables: List[Any], **kwargs) -> List[Any]:
         for p in predictables:
-            print(self.cls(p.text))
+            prediction = self.cls(p.text)[-1]
+            p.pred = 'Negative' if '0' in prediction['label'] else 'Positive'
+            p.prob = prediction['score']
+            p.label = prediction['label']
         return predictables
