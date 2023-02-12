@@ -1,0 +1,7 @@
+[core]
+    no_scm = True
+    analytics = false
+    remote = ds-ml-artifacts
+['remote "ds-ml-artifacts"']
+    url = gs://dozi-stg-ds-apps-1-ds-apps-ds-ml-artifacts/privacy_classifier
+    projectname = dozi-stg-ds-apps-1

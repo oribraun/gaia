@@ -1,0 +1,2 @@
+from .inputs import PrivacyClassifierInputs
+from .outputs import PrivacyClassifierOutputs
