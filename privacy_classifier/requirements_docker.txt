@@ -1,0 +1,2 @@
+dsframework==0.1.93
+adapter-transformers
