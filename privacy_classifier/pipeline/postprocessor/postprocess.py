@@ -68,6 +68,6 @@ class PrivacyClassifierPostprocess(ZIDS_Postprocessor):
             NotImplementedError
 
         """
-        out = {'text':predictable.text, 'pred': predictable.pred, 'prob': predictable.prob}
+        out = {'text':predictable.text, 'pred': predictable.pred, 'prob': predictable.prob, 'label': predictable.label}
         return out
 

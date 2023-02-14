@@ -45,7 +45,10 @@ class PrivacyClassifierSharedArtifacts(ZIDS_SharedArtifacts):
             config=config,
         )
 
-        temp_adapter = model.load_adapter(f'{self.adapters_path}/temp_adapter')
+        sentiment_adapter = model.load_adapter(f'{self.adapters_path}/sentiment_adapter')
         privacy_adapter = model.load_adapter(f'{self.adapters_path}/privacy_model_v02')
-        model.set_active_adapters(ac.Parallel(temp_adapter, privacy_adapter))
+        model.set_active_adapters(ac.Parallel(sentiment_adapter, privacy_adapter))
+        self.model = model
+        self.tokenizer = tokenizer
+        self.adapter_list = {'sentiment_adapter':sentiment_adapter , 'privacy_adapter':privacy_adapter}
         self.privacy_adapters_classifier = TextClassificationPipeline(model=model, tokenizer=tokenizer)
