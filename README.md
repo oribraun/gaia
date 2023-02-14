@@ -1,3 +1,20 @@
+# how to config
+1. create .env local file
+2. add the following config
+```
+SECRET_KEY=
+
+DB by default is sqlite
+if you want my-sql you should define
+
+MYSQL_DB=
+MYSQL_USER=
+MYSQL_PASSWORD=
+DJANGO_DATABASE=my-sql
+
+```
+
+
 # How to Run
 
 1. python -m venv venv

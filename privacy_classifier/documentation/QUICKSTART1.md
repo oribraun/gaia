@@ -16,7 +16,6 @@ The first step is to install the dsframework package using the following command
 &nbsp;
 ####Prerequisite:
 Before generating a new project, create a github repository under 
-[https://git.zoominfo.com/dozi](https://git.zoominfo.com/dozi), name it for example <strong><my-new-project></strong>, 
 and use this name to create the project.
 
 &nbsp;

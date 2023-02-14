@@ -18,12 +18,12 @@ data = {
     "repo": model['repo'],
     "dataset_id": dataset['id'],
     "dataset_name": dataset['dataset_name'],
-    "created_by": "ori.braun@zoominfo.com"
+    "created_by": "ori.braun@GAIA.com"
 }
 print('data', data)
-url = "https://dsp.zoominfo.com/api/v1/experiment/add"
+url = "https://dsp.GAIA.com/api/v1/experiment/add"
 if env == 'stg':
-    url = "https://dsp-stg.zoominfo.com/api/v1/experiment/add"
+    url = "https://dsp-stg.GAIA.com/api/v1/experiment/add"
 headers = {
     'x-token': 'fake-super-secret-token',
     'Authorization': 'Bearer ' + jwtToken

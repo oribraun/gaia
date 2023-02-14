@@ -1,2 +1,2 @@
-@Library("zoominfo-pipeline-lib") _
+@Library("GAIA-pipeline-lib") _
 archetype 'cicd/archetype-onebranch'

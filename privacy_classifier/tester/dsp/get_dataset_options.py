@@ -14,9 +14,9 @@ jwtToken = t.generateToken(env.upper() + '_Conf')
 data = {
 	"model_type_id": model_id
 }
-url = "https://dsp.zoominfo.com/api/v1/truth-datasets/getDatasetOptions"
+url = "https://dsp.GAIA.com/api/v1/truth-datasets/getDatasetOptions"
 if env == 'stg':
-	url = "https://dsp-stg.zoominfo.com/api/v1/truth-datasets/getDatasetOptions"
+	url = "https://dsp-stg.GAIA.com/api/v1/truth-datasets/getDatasetOptions"
 headers = {
 	'x-token': 'fake-super-secret-token',
 	'Authorization': 'Bearer ' + jwtToken

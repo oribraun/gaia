@@ -5,6 +5,7 @@ import json
 from dsframework.base.pipeline.artifacts.shared_artifacts import ZIDS_SharedArtifacts
 from transformers import RobertaTokenizer, RobertaConfig, RobertaAdapterModel
 from transformers import TextClassificationPipeline
+import transformers.adapters.composition as ac
 
 """! @brief PrivacyClassifierSharedArtifacts (SharedArtifacts) class."""
 class PrivacyClassifierSharedArtifacts(ZIDS_SharedArtifacts):
@@ -44,6 +45,7 @@ class PrivacyClassifierSharedArtifacts(ZIDS_SharedArtifacts):
             config=config,
         )
 
-        rt_adapter = model.load_adapter(f'{self.adapters_path}/temp_adapter')
-        model.set_active_adapters(rt_adapter)
+        temp_adapter = model.load_adapter(f'{self.adapters_path}/temp_adapter')
+        privacy_adapter = model.load_adapter(f'{self.adapters_path}/privacy_model_v02')
+        model.set_active_adapters(ac.Parallel(temp_adapter, privacy_adapter))
         self.privacy_adapters_classifier = TextClassificationPipeline(model=model, tokenizer=tokenizer)

@@ -4,7 +4,7 @@
 
 ## Links
 
-- [Github Repo](https://git.zoominfo.com/dozi/privacy_classifier "privacy_classifier Repo")
+- [Github Repo](https://git.GAIA.com/dozi/privacy_classifier "privacy_classifier Repo")
 
 - [API](<API Link> "API")
 
@@ -54,7 +54,7 @@ Trigger local testing via a csv file
 
 **Developer - Name**
 
-- [Email](mailto:yourname@zoominfo.com?subject=Hi "Hi!")
+- [Email](mailto:yourname@GAIA.com?subject=Hi "Hi!")
 
 
 ## 🤝 Support
