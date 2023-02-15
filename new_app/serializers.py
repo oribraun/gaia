@@ -4,6 +4,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from django.shortcuts import get_object_or_404
 from django.core import exceptions
+from django.contrib.auth import password_validation
 from new_app.models import ExampleModel
 
 User = get_user_model()
@@ -34,6 +35,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
 
         return user
+
+    def validate_password(self, value):
+        password_validation.validate_password(value, self.instance)
+        return value
 
 # Login Serializer
 class LoginSerializer(serializers.ModelSerializer):

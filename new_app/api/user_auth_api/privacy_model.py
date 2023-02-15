@@ -1,11 +1,12 @@
 import random
 from django.http import HttpResponse, JsonResponse
-from .base_api import BasePublicApi
+from .base_api import BaseUserAuthApi
 from new_app.api.jsonResponse import baseHttpResponse
 
 from privacy_classifier.pipeline.pipeline import PrivacyClassifierPipeline
 pipeline = PrivacyClassifierPipeline()
-class PrivacyModelApi(BasePublicApi):
+
+class PrivacyModelApi(BaseUserAuthApi):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     # permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):

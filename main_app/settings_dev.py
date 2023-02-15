@@ -172,12 +172,16 @@ ALLOWED_HOSTS=['*']
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:4200',
+    'http://localhost:4201',
     'https://chat.openai.com',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
+    'chrome-extension://afmajmaiipknjhfjadljjedeelnodjjb'
 ]
 CORS_ALLOWED_ORIGIN = [
     'http://localhost:4200',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'http://localhost:4201',
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
+    'chrome-extension://afmajmaiipknjhfjadljjedeelnodjjb'
 ]
 
 CORS_ALLOW_METHODS = [
@@ -201,6 +205,8 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
     "tembel-ai-token",
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL="new_app.User"
 

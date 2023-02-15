@@ -1,3 +1,5 @@
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from rest_framework import generics, permissions
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.response import Response
@@ -9,40 +11,65 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.middleware.csrf import get_token
 from django.forms.models import model_to_dict
 from knox.models import AuthToken
 from new_app.serializers import UserSerializer, RegisterSerializer, LoginSerializer, LogoutSerializer, ForgotPasswordSerializer, MyAuthTokenSerializer, MyEmailSerializer
 from knox.views import LoginView as KnoxLoginView
+from new_app.api.jsonResponse import baseHttpResponse
 from django.core.mail import send_mail
 
+token_delta = relativedelta(days=1)
 # Register API
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)[1]
-        })
+        valid = serializer.is_valid(raise_exception=False)
+        response = baseHttpResponse()
+        if valid:
+            user = serializer.save()
+            obj = {
+                "user": UserSerializer(user, context=self.get_serializer_context()).data,
+                "token": AuthToken.objects.create(user)[1],
+                "csrftoken": get_token(request),
+                "csrftoken_exp": (datetime.now() + token_delta).replace(microsecond=0),
+            }
+            response.data = obj
+            return Response()
+        else:
+            response.err = 1
+            error_list = [serializer.errors[error][0] for error in serializer.errors]
+            response.errMessage = error_list
+            return Response(response.dict())
 
 # Login API
+
 class LoginAPI(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
     @method_decorator(ensure_csrf_cookie, name='post')
     def post(self, request, *args, **kwargs):
         serializer = MyAuthTokenSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        login(request, user)
-        return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)[1],
-            # "csrf_token": csrf_token
-        })
+        valid = serializer.is_valid(raise_exception=False)
+        response = baseHttpResponse()
+        if valid:
+            user = serializer.validated_data['user']
+            login(request, user)
+            obj = {
+                "user": UserSerializer(user, context=self.get_serializer_context()).data,
+                "token": AuthToken.objects.create(user)[1],
+                "csrftoken": get_token(request),
+                # "csrftoken_exp": (datetime.now() + relativedelta(years=1)).replace(microsecond=0),
+                "csrftoken_exp": (datetime.now() + token_delta).replace(microsecond=0),
+            }
+            response.data = obj
+            return Response(response.dict())
+        else:
+            response.err = 1
+            response.errMessage = 'Unable to log in with provided credentials.'
+            return Response(response.dict())
 
 class LogoutAPI(generics.GenericAPIView):
     serializer_class = LogoutSerializer
