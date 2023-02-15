@@ -37,7 +37,7 @@ class RegisterAPI(generics.GenericAPIView):
                 "csrftoken_exp": (datetime.now() + token_delta).replace(microsecond=0),
             }
             response.data = obj
-            return Response()
+            return Response(response.dict())
         else:
             response.err = 1
             error_list = [serializer.errors[error][0] for error in serializer.errors]
