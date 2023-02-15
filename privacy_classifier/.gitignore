@@ -140,3 +140,4 @@ dmypy.json
 # Dont Git the google credentials - foolproofing
 gcloud_credentials.json
 
+*DS_Store*

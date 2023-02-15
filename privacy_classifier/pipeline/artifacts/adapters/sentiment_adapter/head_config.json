@@ -4,8 +4,8 @@
     "bias": true,
     "head_type": "classification",
     "label2id": {
-      "\ud83d\udc4d": 1,
-      "\ud83d\udc4e": 0
+      "Positive": 1,
+      "Negative": 0
     },
     "layers": 2,
     "num_labels": 2,
