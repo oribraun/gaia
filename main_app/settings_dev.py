@@ -203,7 +203,7 @@ CORS_ALLOW_HEADERS = [
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
-    "tembel-ai-token",
+    "gaia-ai-token",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

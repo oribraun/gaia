@@ -32,7 +32,9 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.localhost', '127.0.0.1', '[::1]'
+]
 
 
 # Application definition
@@ -72,6 +74,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'new_app.current_user.CurrentUserMiddleware',
 ]
 
 ROOT_URLCONF = 'main_app.urls'

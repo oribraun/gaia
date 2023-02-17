@@ -1,10 +1,12 @@
 python-dotenv
-mysqlclient
 django
-djangorestframework
-whitenoise
+django-crispy-forms
 django-rest-knox
 django-cors-headers
+djangorestframework
+mysqlclient
+uwsgi
+whitenoise
 dsframework==0.1.93
 torch==1.13.1
 adapter-transformers==3.1.0

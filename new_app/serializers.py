@@ -5,23 +5,17 @@ from django.contrib.auth import get_user_model, authenticate
 from django.shortcuts import get_object_or_404
 from django.core import exceptions
 from django.contrib.auth import password_validation
-from new_app.models import ExampleModel
-
+from new_app.app_models.company import Company
 User = get_user_model()
-
-class ExampleModelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ExampleModel
-        fields = ('firstname', 'lastname')
-
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
     role_display = serializers.CharField(source='get_role_display')
+    company_name = serializers.CharField(source='company')
     # full_name = serializers.CharField(source='get_full_name')
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'role', 'role_display')
+        fields = ('id', 'username', 'email', 'role', 'role_display', 'company_name')
         # fields = ('id', 'username', 'email', 'role', 'groups', 'last_login', 'full_name')
 
 # Register Serializer
@@ -32,7 +26,19 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
+        email = validated_data['email']
+        domain = email[email.index('@') + 1:]
+        company = None
+        try:
+            company = Company.objects.get(domain=domain)
+        except:
+            pass
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password'],
+            company=company
+        )
 
         return user
 
