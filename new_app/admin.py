@@ -55,7 +55,7 @@ class UserPromptsForm(admin.ModelAdmin):
     )
 
     list_display = ("user",'prompt','ip_address',)
-    list_filter = ('user',)
+    list_filter = ('user','ip_address',)
     class Meta:
         model = UserPrompt
         fields = ("user",'prompt','ip_address',)
@@ -76,7 +76,7 @@ class UserPrivacyModelPromptForm(admin.ModelAdmin):
     )
 
     list_display = ("user",'prompt','company','ip_address','created',)
-    list_filter = ('user','company',)
+    list_filter = ('user','company','ip_address',)
     class Meta:
         model = UserPrivacyModelPrompt
         fields = ("user",'prompt','company','ip_address','created',)
