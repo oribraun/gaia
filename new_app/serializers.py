@@ -50,9 +50,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'password')
+        fields = ('email', 'password')
         extra_kwargs = {
-            'username': {'required': True,'allow_blank': False, 'label': 'Username or email'},
+            'email': {'required': True,'allow_blank': False, 'label': 'Username or email'},
             'password': {'write_only': True},
         }
 
@@ -127,7 +127,7 @@ def validateEmail(email):
 
 
 class MyAuthTokenSerializer(serializers.Serializer):
-    username = serializers.CharField(
+    email = serializers.CharField(
         label=_("Username or email"),
         write_only=True,
         allow_blank=False,
@@ -145,15 +145,16 @@ class MyAuthTokenSerializer(serializers.Serializer):
     )
 
     def validate(self, attrs):
-        username = attrs.get('username')
+        # username = attrs.get('username')
+        username = None
+        email = attrs.get('email')
         password = attrs.get('password')
-
-        if username and password:
+        if email and password:
             # Check if user sent email
-            if validateEmail(username):
+            if validateEmail(email):
                 # username = get_object_or_404(User, email=username)
                 try:
-                    username = User.objects.get(email__exact=username)
+                    username = User.objects.get(email__exact=email)
                 except:
                     pass
 
