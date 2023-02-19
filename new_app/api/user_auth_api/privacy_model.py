@@ -58,11 +58,4 @@ class PrivacyModelApi(BaseUserAuthApi):
         # user_prompt = UserPrivacyModelPrompt.objects.filter(user=request.user)
         # print('all_users_prompt', all_users_prompt.values())
         # print('user_prompt', user_prompt.values())
-        return JsonResponse({
-            'err': 0,
-            'errMessage': '',
-            'model_res': {},
-            'suggested_prompt': prompt + ' suggested',
-            'suggested_model': ' Privacy model V1',
-            'pass_privacy': False,
-        }, safe=False)
+        return JsonResponse(return_obj, safe=False)

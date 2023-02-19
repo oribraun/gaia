@@ -5,6 +5,7 @@ from new_app.models import User
 from new_app.app_models.company import Company
 from new_app.app_models.user_privacy_model_prompt import UserPrivacyModelPrompt
 from new_app.app_models.user_prompt import UserPrompt
+from new_app.app_models.company_admin import CompanyAdmin
 
 # Register your models here.
 
@@ -90,3 +91,16 @@ class UserPrivacyModelPromptForm(admin.ModelAdmin):
         return False
 
 admin.site.register(UserPrivacyModelPrompt, UserPrivacyModelPromptForm)
+
+class CompanyAdminForm(admin.ModelAdmin):
+    fieldsets = (
+        (None, {'fields': ('user','company',)}),
+    )
+
+    list_display = ('user','company','created',)
+    list_filter = ('user','company',)
+    class Meta:
+        model = CompanyAdmin
+        fields = ('user','company',)
+
+admin.site.register(CompanyAdmin, CompanyAdminForm)
