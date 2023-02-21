@@ -8,11 +8,15 @@ import os
 
 class AnalyzeApi(BaseUserAuthApi):
     def post(self, request, *args, **kwargs):
-        file_path = request.data['file_path']
-        print(os.path.exists(file_path))
-        text = open(os.path.join(file_path), 'rb').read()
-        # print('text', text)
-        print('file_path', file_path)
         response = baseHttpResponse()
-        response.message = f"start to analyze"
+        file_path = request.data['file_path']
+        # print('file_path', file_path)
+        # print(os.path.exists(file_path))
+        try:
+            text = open(os.path.join(file_path), 'rb').read()
+            response.message = f"start to analyze"
+        except:
+            response.err = 1
+            response.errMessage = f"cant load file path"
+
         return JsonResponse(response.dict())

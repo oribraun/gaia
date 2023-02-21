@@ -10,11 +10,11 @@ class PromptOptimizerView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, format=None):
-        tembel_ai_token = ''
-        if 'TEMBEL-AI-TOKEN' in request.headers:
-            tembel_ai_token = request.headers['TEMBEL-AI-TOKEN']
+        gaia_ai_token = ''
+        if 'GAIA-AI-TOKEN' in request.headers:
+            gaia_ai_token = request.headers['GAIA-AI-TOKEN']
         print('request.user', request.user)
-        print('tembel_ai_token', tembel_ai_token)
+        print('gaia_ai_token', gaia_ai_token)
         if request.user.is_authenticated:
             current_user = request.user
             current_user.api_total_requests += 1

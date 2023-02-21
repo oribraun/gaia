@@ -174,11 +174,7 @@ PASSWORD_RESET_EXPIRATION_TIME = 1 * 60 * 10 # 10 minutes
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
-    'https://chat.openai.com',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
-    'chrome-extension://afmajmaiipknjhfjadljjedeelnodjjb'
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
-    'chrome-extension://afmajmaiipknjhfjadljjedeelnodjjb'
 ]

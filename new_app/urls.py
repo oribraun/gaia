@@ -11,6 +11,7 @@ from new_app.api.user_auth_api.get_user import UserAPI
 from new_app.api.user_auth_api.upload_file import UploadFileApi
 from new_app.api.user_auth_api.analyze import AnalyzeApi
 from new_app.api.user_auth_api.get_dashboard import GetDashboardApi
+from new_app.api.user_auth_api.chat_gpt_api import ChatGptApi
 from new_app.api.auth import LoginAPI, RegisterAPI, LogoutAPI, ForgotPasswordAPI
 from django.urls import path, re_path, include
 
@@ -34,5 +35,6 @@ urlpatterns = [
     re_path(rf'^{API_BASE}privacy-model$', PrivacyModelApi.as_view()),
     re_path(rf'^{API_BASE}collect-user-prompt$', CollectUserPromptApi.as_view()),
     re_path(rf'^{API_BASE}get-dashboard$', GetDashboardApi.as_view()),
+    re_path(rf'^{API_BASE}get-answer$', ChatGptApi.as_view()),
     re_path(rf'^{API_BASE}public$', PublicApi.as_view()),
 ]

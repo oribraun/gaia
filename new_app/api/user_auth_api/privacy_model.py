@@ -6,8 +6,8 @@ from new_app.app_models.company import Company
 from new_app.app_models.user import User
 from new_app.app_models.user_privacy_model_prompt import UserPrivacyModelPrompt
 
-from privacy_classifier.pipeline.pipeline import PrivacyClassifierPipeline
-pipeline = PrivacyClassifierPipeline()
+# from privacy_classifier.pipeline.pipeline import PrivacyClassifierPipeline
+# pipeline = PrivacyClassifierPipeline()
 
 class PrivacyModelApi(BaseUserAuthApi):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
@@ -40,11 +40,11 @@ class PrivacyModelApi(BaseUserAuthApi):
         # print('request_user', request.user)
         # print('prompt', prompt)
 
-        res = pipeline(text=prompt)
+        # res = pipeline(text=prompt)
         return_obj = {
             'err': 0,
             'errMessage': '',
-            'model_res': res,
+            'model_res': {},
             'suggested_prompt': prompt + ' suggested',
             'suggested_model': ' Privacy model V1',
             'pass_privacy': False,

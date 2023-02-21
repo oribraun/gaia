@@ -173,16 +173,24 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:4200',
     'http://localhost:4201',
-    'https://chat.openai.com',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
-    'chrome-extension://afmajmaiipknjhfjadljjedeelnodjjb'
+    # 'https://chat.openai.com',
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
-    'http://localhost:4200',
-    'http://localhost:4201',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
-    'chrome-extension://afmajmaiipknjhfjadljjedeelnodjjb'
+    # 'http://localhost:4200',
+    # 'http://localhost:4201'
 ]
+CSRF_TRUSTED_ORIGINS = [
+#     'https://chat.openai.com',
+#     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+]
+# CSRF_COOKIE_PATH = '/'
+# CSRF_COOKIE_SAMESITE = 'Strict'
+# CSRF_COOKIE_SECURE = True
+
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_SAMESITE = None
+# CSRF_COOKIE_SAMESITE = None
 
 CORS_ALLOW_METHODS = [
     'DELETE',
