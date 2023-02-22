@@ -34,7 +34,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '.localhost', '127.0.0.1', '[::1]',
-    'http://13.230.105.89', 'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
+    '13.230.105.89', 'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
 ]
 
 

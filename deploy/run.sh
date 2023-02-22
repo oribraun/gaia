@@ -1,0 +1,1 @@
+uwsgi --socket /run/uwsgi/mysite.sock --chdir /home/ubuntu/app/gaia --module main_app.wsgi --chmod-socket=666
