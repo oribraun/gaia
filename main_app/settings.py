@@ -33,10 +33,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '.localhost',
-    '127.0.0.1',
-    '[::1]',
+    # '127.0.0.1',
+    # '[::1]',
+    '13.112.220.195',
     '13.230.105.89',
-    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
+    '43.206.228.120',
+    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 
 
@@ -62,9 +65,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    # REMOVE IN PRODUCTION
-    # See: http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
-    'whitenoise.runserver_nostatic',
     'new_app',
     'rest_framework',
     'knox',
@@ -173,13 +173,14 @@ MEDIA_ROOT = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS=['*']
+# ALLOWED_HOSTS=['*']
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:4200',
-    'http://localhost:4201',
-    # 'https://chat.openai.com',
+    'http://13.112.220.195',
+    'http://13.230.105.89',
+    'http://43.206.228.120',
+    'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
@@ -187,8 +188,11 @@ CORS_ALLOWED_ORIGIN = [
     # 'http://localhost:4201'
 ]
 CSRF_TRUSTED_ORIGINS = [
-#     'https://chat.openai.com',
-#     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'http://13.112.220.195',
+    'http://13.230.105.89',
+    'http://43.206.228.120',
+    'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 # CSRF_COOKIE_PATH = '/'
 # CSRF_COOKIE_SAMESITE = 'Strict'
