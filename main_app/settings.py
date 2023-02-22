@@ -224,7 +224,7 @@ CORS_ALLOW_HEADERS = [
     # "gaia-ai-token",
 ]
 
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL="new_app.User"
 
