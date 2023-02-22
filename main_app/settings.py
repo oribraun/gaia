@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
     '.localhost',
     # '127.0.0.1',
     # '[::1]',
+    '13.112.220.195',
     '13.230.105.89',
     '43.206.228.120',
     'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
@@ -176,6 +177,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
+    '13.112.220.195',
     'http://13.230.105.89',
     'http://43.206.228.120',
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
@@ -186,6 +188,7 @@ CORS_ALLOWED_ORIGIN = [
     # 'http://localhost:4201'
 ]
 CSRF_TRUSTED_ORIGINS = [
+    '13.112.220.195',
     'http://13.230.105.89',
     'http://43.206.228.120',
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
