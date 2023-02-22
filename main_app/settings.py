@@ -17,7 +17,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-print('PROJECT_ROOT', os.path.join(PROJECT_ROOT, 'templates'))
 
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
@@ -30,15 +29,16 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '.localhost',
-    '127.0.0.1',
-    '[::1]',
+    # '127.0.0.1',
+    # '[::1]',
     '13.230.105.89',
     '43.206.228.120',
-    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
+    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 
 
@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'new_app',
     'rest_framework',
     'knox',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +80,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'new_app.current_user.CurrentUserMiddleware',
 ]
 
 ROOT_URLCONF = 'main_app.urls'
@@ -123,6 +123,7 @@ DATABASES = {
 }
 default_database = os.environ.get('DJANGO_DATABASE', 'main')
 DATABASES['default'] = DATABASES[default_database]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -171,12 +172,8 @@ MEDIA_ROOT = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL="new_app.User"
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-PASSWORD_RESET_EXPIRATION_TIME = 1 * 60 * 10 # 10 minutes
-
+# ALLOWED_HOSTS=['*']
+# CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
     'http://13.230.105.89',
@@ -184,11 +181,55 @@ CORS_ORIGIN_WHITELIST = [
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
+CORS_ALLOWED_ORIGIN = [
+    # 'http://localhost:4200',
+    # 'http://localhost:4201'
+]
 CSRF_TRUSTED_ORIGINS = [
     'http://13.230.105.89',
     'http://43.206.228.120',
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
-CORS_ALLOWED_ORIGIN = [
+# CSRF_COOKIE_PATH = '/'
+# CSRF_COOKIE_SAMESITE = 'Strict'
+# CSRF_COOKIE_SECURE = True
+
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_SAMESITE = None
+# CSRF_COOKIE_SAMESITE = None
+
+CORS_ALLOW_METHODS = [
+    # 'DELETE',
+    # 'GET',
+    # 'OPTIONS',
+    # 'PATCH',
+    # 'POST',
+    # 'PUT',
 ]
+
+CORS_ALLOW_HEADERS = [
+    # "accept",
+    # "accept-encoding",
+    # "authorization",
+    # "content-type",
+    # "dnt",
+    # "origin",
+    # "user-agent",
+    # "x-csrftoken",
+    # "x-requested-with",
+    # "gaia-ai-token",
+]
+
+# CORS_ALLOW_CREDENTIALS = True
+
+AUTH_USER_MODEL="new_app.User"
+
+PASSWORD_RESET_EXPIRATION_TIME = 1 * 60 * 10 # 10 minutes
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
