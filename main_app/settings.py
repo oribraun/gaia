@@ -201,27 +201,27 @@ CSRF_TRUSTED_ORIGINS = [
 # SESSION_COOKIE_SECURE = True
 # SESSION_COOKIE_SAMESITE = None
 # CSRF_COOKIE_SAMESITE = None
-
+CSRF_COOKIE_HTTPONLY = False
 CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
+    # 'DELETE',
+    # 'GET',
+    # 'OPTIONS',
+    # 'PATCH',
+    # 'POST',
+    # 'PUT',
 ]
 
 CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-    "gaia-ai-token",
+    # "accept",
+    # "accept-encoding",
+    # "authorization",
+    # "content-type",
+    # "dnt",
+    # "origin",
+    # "user-agent",
+    # "x-csrftoken",
+    # "x-requested-with",
+    # "gaia-ai-token",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
