@@ -33,8 +33,11 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '.localhost', '127.0.0.1', '[::1]',
-    '13.230.105.89', 'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
+    '.localhost',
+    '127.0.0.1',
+    '[::1]',
+    '13.230.105.89',
+    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
 ]
 
 
@@ -175,6 +178,8 @@ PASSWORD_RESET_EXPIRATION_TIME = 1 * 60 * 10 # 10 minutes
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
+    'http://13.230.105.89',
+    'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
