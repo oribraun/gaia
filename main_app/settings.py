@@ -219,7 +219,7 @@ CORS_ALLOW_HEADERS = [
     # "dnt",
     # "origin",
     # "user-agent",
-    # "x-csrftoken",
+    "x-csrftoken",
     # "x-requested-with",
     # "gaia-ai-token",
 ]
