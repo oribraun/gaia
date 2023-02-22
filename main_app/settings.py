@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '[::1]',
     '13.230.105.89',
+    '43.206.228.120',
     'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
 ]
 
@@ -179,6 +180,13 @@ PASSWORD_RESET_EXPIRATION_TIME = 1 * 60 * 10 # 10 minutes
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
     'http://13.230.105.89',
+    'http://43.206.228.120',
+    'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+]
+CSRF_TRUSTED_ORIGINS = [
+    'http://13.230.105.89',
+    'http://43.206.228.120',
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
