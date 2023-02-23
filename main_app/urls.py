@@ -21,8 +21,7 @@ from django.urls import path, include
 
 from django.shortcuts import render
 from new_app.serializers import UserSerializer
-from django.views.decorators.csrf import csrf_exempt
-@csrf_exempt
+
 def load_angular_client(request, path):
     user = ''
     if request.user.is_authenticated:
