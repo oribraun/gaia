@@ -225,7 +225,7 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
     "gaia-ai-token",
-    "cookie",
+    "csrftoken",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
