@@ -6,7 +6,9 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.views import APIView
 from .base_api import BaseExternalAuthApi
 from new_app.api.jsonResponse import baseHttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 class PromptOptimizerApi(BaseExternalAuthApi):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     # permission_classes = [IsAuthenticated]
