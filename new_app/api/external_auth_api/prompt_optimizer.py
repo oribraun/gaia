@@ -6,8 +6,6 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.views import APIView
 from .base_api import BaseExternalAuthApi
 from new_app.api.jsonResponse import baseHttpResponse
-from django.views.decorators.csrf import csrf_exempt
-
 
 class PromptOptimizerApi(BaseExternalAuthApi):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
@@ -21,7 +19,6 @@ class PromptOptimizerApi(BaseExternalAuthApi):
             response.errMessage = 'no user logged in'
             return JsonResponse(response.dict(), safe=False)
 
-    @csrf_exempt
     def post(self, request, format=None):
         gaia_ai_token = ''
         if 'GAIA-AI-TOKEN' in request.headers:
