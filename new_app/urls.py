@@ -14,6 +14,7 @@ from new_app.api.user_auth_api.get_dashboard import GetDashboardApi
 from new_app.api.user_auth_api.chat_gpt_api import ChatGptApi
 from new_app.api.auth import LoginAPI, RegisterAPI, LogoutAPI, ForgotPasswordAPI
 from django.urls import path, re_path, include
+from django.views.decorators.csrf import csrf_exempt
 
 API_BASE = 'api/'
 API_AUTH_BASE = API_BASE + 'auth/'
