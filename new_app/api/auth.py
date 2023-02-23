@@ -49,8 +49,7 @@ class RegisterAPI(generics.GenericAPIView):
 class LoginAPI(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
-    # @method_decorator(ensure_csrf_cookie, name='post')
-    @csrf_exempt
+    @method_decorator(csrf_exempt, name='post')
     def post(self, request, *args, **kwargs):
         serializer = MyAuthTokenSerializer(data=request.data)
         valid = serializer.is_valid(raise_exception=False)
