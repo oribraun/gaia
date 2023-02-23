@@ -5,7 +5,7 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.response import Response
 from django.contrib.auth import login, logout
 from django.contrib.auth.tokens import default_token_generator
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.utils import timezone
@@ -50,6 +50,7 @@ class LoginAPI(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
     # @method_decorator(ensure_csrf_cookie, name='post')
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = MyAuthTokenSerializer(data=request.data)
         valid = serializer.is_valid(raise_exception=False)
