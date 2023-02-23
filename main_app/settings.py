@@ -190,7 +190,6 @@ CORS_ALLOWED_ORIGIN = [
     # 'http://localhost:4201'
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:4200',
     'http://13.112.220.195:8000',
     'http://13.112.220.195',
     'http://13.230.105.89',
