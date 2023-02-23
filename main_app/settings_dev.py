@@ -36,8 +36,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '[::1]',
     '13.230.105.89',
-    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
 ]
 
 
@@ -184,7 +183,6 @@ CORS_ORIGIN_WHITELIST = [
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
     # 'http://localhost:4200',
     # 'http://localhost:4201'
 ]
@@ -194,11 +192,11 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 # CSRF_COOKIE_PATH = '/'
 # CSRF_COOKIE_SAMESITE = 'Strict'
-CSRF_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = True
 
 # SESSION_COOKIE_SECURE = True
 # SESSION_COOKIE_SAMESITE = None
-CSRF_COOKIE_SAMESITE = 'None'
+# CSRF_COOKIE_SAMESITE = None
 
 CORS_ALLOW_METHODS = [
     'DELETE',
