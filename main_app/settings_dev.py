@@ -36,7 +36,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '[::1]',
     '13.230.105.89',
-    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
+    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 
 
@@ -183,12 +184,13 @@ CORS_ORIGIN_WHITELIST = [
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
     # 'http://localhost:4200',
     # 'http://localhost:4201'
 ]
 CSRF_TRUSTED_ORIGINS = [
 #     'https://chat.openai.com',
-#     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 # CSRF_COOKIE_PATH = '/'
 # CSRF_COOKIE_SAMESITE = 'Strict'
