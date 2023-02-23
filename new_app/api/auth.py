@@ -17,6 +17,7 @@ from knox.models import AuthToken
 from new_app.serializers import UserSerializer, RegisterSerializer, LoginSerializer, LogoutSerializer, ForgotPasswordSerializer, MyAuthTokenSerializer, MyEmailSerializer
 from knox.views import LoginView as KnoxLoginView
 from new_app.api.jsonResponse import baseHttpResponse
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.core.mail import send_mail
 
 token_delta = relativedelta(days=1)
@@ -47,11 +48,11 @@ class RegisterAPI(generics.GenericAPIView):
 # Login API
 
 class LoginAPI(generics.GenericAPIView):
+    authentication_classes = [BasicAuthentication]
     serializer_class = LoginSerializer
 
-    # @method_decorator(ensure_csrf_cookie, name='post')
+    @method_decorator(ensure_csrf_cookie, name='post')
     def post(self, request, *args, **kwargs):
-        print('csrf', request)
         serializer = MyAuthTokenSerializer(data=request.data)
         valid = serializer.is_valid(raise_exception=False)
         response = baseHttpResponse()
@@ -73,6 +74,7 @@ class LoginAPI(generics.GenericAPIView):
             return Response(response.dict())
 
 class LogoutAPI(generics.GenericAPIView):
+    authentication_classes = [BasicAuthentication]
     serializer_class = LogoutSerializer
 
     def post(self, request, *args, **kwargs):
