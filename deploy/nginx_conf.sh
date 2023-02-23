@@ -7,5 +7,5 @@ sudo systemctl restart nginx
 
 sudo cp /home/ubuntu/app/gaia/deploy/gaia_nginx.conf /etc/nginx/sites-available/gaia_nginx_https.conf
 sudo ln -s /etc/nginx/sites-available/gaia_nginx_https.conf /etc/nginx/sites-enabled/
-sudo cp /home/ubuntu/app/gaia/deploy/gaia.ini /etc/uwsgi/sites/gaia.ini
+sudo cp /home/ubuntu/app/gaia/deploy/gaia_https.ini /etc/uwsgi/sites/gaia_https.ini
 sudo systemctl restart nginx
