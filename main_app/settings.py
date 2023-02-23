@@ -39,7 +39,7 @@ ALLOWED_HOSTS = [
     '13.230.105.89',
     '43.206.228.120',
     'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 
 
@@ -182,10 +182,10 @@ CORS_ORIGIN_WHITELIST = [
     'http://13.230.105.89',
     'http://43.206.228.120',
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
     # 'http://localhost:4200',
     # 'http://localhost:4201'
 ]
@@ -195,7 +195,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://13.230.105.89',
     'http://43.206.228.120',
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 # CSRF_COOKIE_PATH = '/'
 # CSRF_COOKIE_SAMESITE = 'Strict'
@@ -225,7 +225,6 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
     "gaia-ai-token",
-    "csrftoken",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
