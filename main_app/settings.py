@@ -38,7 +38,7 @@ ALLOWED_HOSTS = [
     'ip.gaialabs.ai',
     'aws.gaialabs.ai',
     '13.112.220.195',
-    '13.230.105.89',
+    '13.230.184.34',
     '43.206.228.120',
     'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
@@ -182,7 +182,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
     'http://13.112.220.195:8000',
     'http://13.112.220.195',
-    'http://13.230.105.89',
+    'http://13.230.184.34',
     'http://43.206.228.120',
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
@@ -195,7 +195,7 @@ CORS_ALLOWED_ORIGIN = [
 CSRF_TRUSTED_ORIGINS = [
     'http://13.112.220.195:8000',
     'http://13.112.220.195',
-    'http://13.230.105.89',
+    'http://13.230.184.34',
     'http://43.206.228.120',
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'

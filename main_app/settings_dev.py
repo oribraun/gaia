@@ -37,7 +37,7 @@ ALLOWED_HOSTS = [
     '[::1]',
     'ip.gaialabs.ai',
     'aws.gaialabs.ai',
-    '13.230.105.89',
+    '13.230.184.34',
     'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com'
 ]
 
