@@ -48,7 +48,7 @@ class RegisterAPI(generics.GenericAPIView):
 # Login API
 
 class LoginAPI(generics.GenericAPIView):
-    authentication_classes = [BasicAuthentication]
+    # authentication_classes = [BasicAuthentication]
     serializer_class = LoginSerializer
 
     @method_decorator(ensure_csrf_cookie, name='post')
