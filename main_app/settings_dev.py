@@ -182,7 +182,9 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:4200',
     'http://localhost:4201',
+    'http://ip.gaialabs.ai',
     # 'https://chat.openai.com',
+    'https://ec2-13-230-184-34.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
@@ -192,7 +194,9 @@ CORS_ALLOWED_ORIGIN = [
 CSRF_TRUSTED_ORIGINS = [
     # 'http://localhost:4200',
     'http://localhost:4201',
+    'http://ip.gaialabs.ai',
 #     'https://chat.openai.com',
+    'https://ec2-13-230-184-34.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 
