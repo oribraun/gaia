@@ -206,7 +206,7 @@ CSRF_TRUSTED_ORIGINS = [
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 # must have this CSRF_HEADER_NAME 'CSRF_COOKIE' when using chrome extension
-# CSRF_HEADER_NAME = 'CSRF_COOKIE'
+CSRF_HEADER_NAME = 'CSRF_COOKIE'
 # CSRF_COOKIE_PATH = '/'
 # CSRF_COOKIE_SAMESITE = 'Strict'
 # CSRF_COOKIE_SECURE = True
