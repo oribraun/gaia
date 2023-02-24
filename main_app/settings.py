@@ -198,6 +198,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
+CSRF_HEADER_NAME = 'CSRF_COOKIE'
 # CSRF_COOKIE_PATH = '/'
 # CSRF_COOKIE_SAMESITE = 'Strict'
 # CSRF_COOKIE_SECURE = True
