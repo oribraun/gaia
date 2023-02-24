@@ -48,6 +48,7 @@ class MyCsrfViewMiddleware(CsrfViewMiddleware):
         # process_request() phase.
         try:
             csrf_secret = self._get_secret(request)
+            print('csrf_secret', csrf_secret)
         except InvalidTokenFormat as exc:
             raise RejectRequest(f"CSRF cookie {exc.reason}.")
 
@@ -62,6 +63,7 @@ class MyCsrfViewMiddleware(CsrfViewMiddleware):
         if request.method == "POST":
             try:
                 request_csrf_token = request.POST.get("csrfmiddlewaretoken", "")
+                print('request_csrf_token', request_csrf_token)
             except UnreadablePostError:
                 # Handle a broken connection before we've completed reading the
                 # POST data. process_view shouldn't raise any exceptions, so
@@ -78,18 +80,22 @@ class MyCsrfViewMiddleware(CsrfViewMiddleware):
                 # the DOM or the cookie (and if the cookie, whether the cookie
                 # was masked or unmasked).
                 request_csrf_token = request.META[settings.CSRF_HEADER_NAME]
+                print('request_csrf_token 2', request_csrf_token)
             except KeyError:
                 raise RejectRequest(REASON_CSRF_TOKEN_MISSING)
             token_source = settings.CSRF_HEADER_NAME
+            print('token_source', token_source)
         else:
             token_source = "POST"
 
         try:
             _check_token_format(request_csrf_token)
         except InvalidTokenFormat as exc:
+            print('InvalidTokenFormat', exc.reason)
             reason = self._bad_token_message(exc.reason, token_source)
             raise RejectRequest(reason)
 
         if not _does_token_match(request_csrf_token, csrf_secret):
+            print('not _does_token_match', csrf_secret)
             reason = self._bad_token_message("incorrect", token_source)
             raise RejectRequest(reason)
