@@ -188,11 +188,13 @@ CORS_ALLOWED_ORIGIN = [
     # 'http://localhost:4201'
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:4200',
+    # 'http://localhost:4200',
     'http://localhost:4201',
 #     'https://chat.openai.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
+
+CSRF_USE_SESSIONS = False
 # CSRF_COOKIE_PATH = '/'
 # CSRF_COOKIE_SAMESITE = 'Strict'
 # CSRF_COOKIE_SECURE = True

@@ -37,66 +37,65 @@ class MyCsrfViewMiddleware(CsrfViewMiddleware):
     def process_view(self, request, callback, callback_args, callback_kwargs):
         print('MyCsrfViewMiddleware process_view request', request.COOKIES)
         return super().process_view(request, callback, callback_args, callback_kwargs)
-        self._check_token(request)
 
     def process_response(self, request, response):
-        print('MyCsrfViewMiddleware process_response request', request)
+        # print('MyCsrfViewMiddleware process_response request', request)
         return super().process_response(request, response)
 
-    def _check_token(self, request):
-        # Access csrf_secret via self._get_secret() as rotate_token() may have
-        # been called by an authentication middleware during the
-        # process_request() phase.
-        try:
-            csrf_secret = self._get_secret(request)
-            print('csrf_secret', csrf_secret)
-        except InvalidTokenFormat as exc:
-            raise RejectRequest(f"CSRF cookie {exc.reason}.")
-
-        if csrf_secret is None:
-            # No CSRF cookie. For POST requests, we insist on a CSRF cookie,
-            # and in this way we can avoid all CSRF attacks, including login
-            # CSRF.
-            raise RejectRequest(REASON_NO_CSRF_COOKIE)
-
-        # Check non-cookie token for match.
-        request_csrf_token = ""
-        if request.method == "POST":
-            try:
-                request_csrf_token = request.POST.get("csrfmiddlewaretoken", "")
-                print('request_csrf_token', request_csrf_token)
-            except UnreadablePostError:
-                # Handle a broken connection before we've completed reading the
-                # POST data. process_view shouldn't raise any exceptions, so
-                # we'll ignore and serve the user a 403 (assuming they're still
-                # listening, which they probably aren't because of the error).
-                pass
-
-        if request_csrf_token == "":
-            # Fall back to X-CSRFToken, to make things easier for AJAX, and
-            # possible for PUT/DELETE.
-            try:
-                # This can have length CSRF_SECRET_LENGTH or CSRF_TOKEN_LENGTH,
-                # depending on whether the client obtained the token from
-                # the DOM or the cookie (and if the cookie, whether the cookie
-                # was masked or unmasked).
-                request_csrf_token = request.META[settings.CSRF_HEADER_NAME]
-                print('request_csrf_token 2', request_csrf_token)
-            except KeyError:
-                raise RejectRequest(REASON_CSRF_TOKEN_MISSING)
-            token_source = settings.CSRF_HEADER_NAME
-            print('token_source', token_source)
-        else:
-            token_source = "POST"
-
-        try:
-            _check_token_format(request_csrf_token)
-        except InvalidTokenFormat as exc:
-            print('InvalidTokenFormat', exc.reason)
-            reason = self._bad_token_message(exc.reason, token_source)
-            raise RejectRequest(reason)
-
-        if not _does_token_match(request_csrf_token, csrf_secret):
-            print('not _does_token_match', csrf_secret)
-            reason = self._bad_token_message("incorrect", token_source)
-            raise RejectRequest(reason)
+    # def _check_token(self, request):
+    #     # Access csrf_secret via self._get_secret() as rotate_token() may have
+    #     # been called by an authentication middleware during the
+    #     # process_request() phase.
+    #     try:
+    #         csrf_secret = self._get_secret(request)
+    #         print('csrf_secret', csrf_secret)
+    #     except InvalidTokenFormat as exc:
+    #         raise RejectRequest(f"CSRF cookie {exc.reason}.")
+    #
+    #     if csrf_secret is None:
+    #         # No CSRF cookie. For POST requests, we insist on a CSRF cookie,
+    #         # and in this way we can avoid all CSRF attacks, including login
+    #         # CSRF.
+    #         raise RejectRequest(REASON_NO_CSRF_COOKIE)
+    #
+    #     # Check non-cookie token for match.
+    #     request_csrf_token = ""
+    #     if request.method == "POST":
+    #         try:
+    #             request_csrf_token = request.POST.get("csrfmiddlewaretoken", "")
+    #             print('request_csrf_token', request_csrf_token)
+    #         except UnreadablePostError:
+    #             # Handle a broken connection before we've completed reading the
+    #             # POST data. process_view shouldn't raise any exceptions, so
+    #             # we'll ignore and serve the user a 403 (assuming they're still
+    #             # listening, which they probably aren't because of the error).
+    #             pass
+    #
+    #     if request_csrf_token == "":
+    #         # Fall back to X-CSRFToken, to make things easier for AJAX, and
+    #         # possible for PUT/DELETE.
+    #         try:
+    #             # This can have length CSRF_SECRET_LENGTH or CSRF_TOKEN_LENGTH,
+    #             # depending on whether the client obtained the token from
+    #             # the DOM or the cookie (and if the cookie, whether the cookie
+    #             # was masked or unmasked).
+    #             request_csrf_token = request.META[settings.CSRF_HEADER_NAME]
+    #             print('request_csrf_token 2', request_csrf_token)
+    #         except KeyError:
+    #             raise RejectRequest(REASON_CSRF_TOKEN_MISSING)
+    #         token_source = settings.CSRF_HEADER_NAME
+    #         print('token_source', token_source)
+    #     else:
+    #         token_source = "POST"
+    #
+    #     try:
+    #         _check_token_format(request_csrf_token)
+    #     except InvalidTokenFormat as exc:
+    #         print('InvalidTokenFormat', exc.reason)
+    #         reason = self._bad_token_message(exc.reason, token_source)
+    #         raise RejectRequest(reason)
+    #
+    #     if not _does_token_match(request_csrf_token, csrf_secret):
+    #         print('not _does_token_match', csrf_secret)
+    #         reason = self._bad_token_message("incorrect", token_source)
+    #         raise RejectRequest(reason)
