@@ -9,8 +9,8 @@ class MyCsrfViewMiddleware(CsrfViewMiddleware):
         print('MyCsrfViewMiddleware process_view request_csrf_token', request_csrf_token)
         CSRF_HEADER_NAME = settings.CSRF_HEADER_NAME
         print('MyCsrfViewMiddleware process_view CSRF_HEADER_NAME', CSRF_HEADER_NAME)
-        # request_csrf_token = request.META['HTTP_X_CSRFTOKEN']
-        # print('MyCsrfViewMiddleware process_view csrf_secret HTTP_X_CSRFTOKEN', request_csrf_token)
+        request_csrf_token = request.META
+        print('MyCsrfViewMiddleware process_view META', request_csrf_token)
         # request_csrf_token = request.META['CSRF_COOKIE']
         # print('MyCsrfViewMiddleware process_view csrf_secret CSRF_COOKIE', request_csrf_token)
         return super().process_view(request, callback, callback_args, callback_kwargs)
