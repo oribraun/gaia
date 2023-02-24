@@ -185,7 +185,7 @@ CORS_ORIGIN_WHITELIST = [
     # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
-    # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
     # 'http://localhost:4200',
     # 'http://localhost:4201'
 ]
