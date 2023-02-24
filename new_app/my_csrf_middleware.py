@@ -3,6 +3,8 @@ from django.middleware.csrf import CsrfViewMiddleware
 class MyCsrfViewMiddleware(CsrfViewMiddleware):
     def process_view(self, request, callback, callback_args, callback_kwargs):
         print('MyCsrfViewMiddleware process_view request', request.COOKIES)
+        csrf_secret = self._get_secret(request)
+        print('MyCsrfViewMiddleware process_view request', csrf_secret)
         return super().process_view(request, callback, callback_args, callback_kwargs)
 
     def process_response(self, request, response):
