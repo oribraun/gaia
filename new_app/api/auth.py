@@ -53,7 +53,7 @@ class LoginAPI(generics.GenericAPIView):
 
     @method_decorator(ensure_csrf_cookie, name='post')
     def post(self, request, *args, **kwargs):
-        print('request', request)
+        print('request', request.headers)
         serializer = MyAuthTokenSerializer(data=request.data)
         valid = serializer.is_valid(raise_exception=False)
         response = baseHttpResponse()
