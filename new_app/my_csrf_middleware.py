@@ -36,8 +36,8 @@ REASON_INVALID_CHARACTERS = "has invalid characters"
 class MyCsrfViewMiddleware(CsrfViewMiddleware):
     def process_view(self, request, callback, callback_args, callback_kwargs):
         print('MyCsrfViewMiddleware process_view request', request.COOKIES)
-        self._check_token(request)
         return super().process_view(request, callback, callback_args, callback_kwargs)
+        self._check_token(request)
 
     def process_response(self, request, response):
         print('MyCsrfViewMiddleware process_response request', request)
