@@ -35,6 +35,8 @@ ALLOWED_HOSTS = [
     '.localhost',
     # '127.0.0.1',
     # '[::1]',
+    'ip.gaialabs.ai',
+    'aws.gaialabs.ai',
     '13.112.220.195',
     '13.230.105.89',
     '43.206.228.120',
