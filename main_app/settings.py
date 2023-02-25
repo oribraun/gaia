@@ -37,7 +37,7 @@ ALLOWED_HOSTS = [
     # '[::1]',
     'gaialabs.ai',
     'ip.gaialabs.ai',
-    'aws.gaialabs.ai',
+    'home.gaialabs.ai',
     '13.230.184.34',
     '43.206.228.120',
     'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
@@ -184,7 +184,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://43.206.228.120',
     'http://gaialabs.ai',
     'http://ip.gaialabs.ai',
-    'http://aws.gaialabs.ai',
+    'http://home.gaialabs.ai',
     'https://ec2-13-230-184-34.ap-northeast-1.compute.amazonaws.com',
     # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
@@ -192,14 +192,14 @@ CORS_ALLOWED_ORIGIN = [
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
     'http://gaialabs.ai',
     'http://ip.gaialabs.ai',
-    'http://aws.gaialabs.ai',
+    'http://home.gaialabs.ai',
     # 'http://localhost:4200',
     # 'http://localhost:4201'
 ]
 CSRF_TRUSTED_ORIGINS = [
     'http://gaialabs.ai',
     'http://ip.gaialabs.ai',
-    'http://aws.gaialabs.ai',
+    'http://home.gaialabs.ai',
     'http://13.230.184.34',
     'http://43.206.228.120',
     'https://ec2-13-230-184-34.ap-northeast-1.compute.amazonaws.com',
