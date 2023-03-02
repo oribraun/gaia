@@ -104,15 +104,15 @@ class ForgotPasswordAPI(generics.GenericAPIView):
 
         user.password_reset_timestamp = timezone.now()
         user.save()
-        # print('reset_url', reset_url)
+        print('reset_url', reset_url)
         # Send the password reset email
-        # send_mail(
-        #     'Password Reset',
-        #     f'Please follow this link to reset your password: {reset_url}',
-        #     'noreply@example.com',
-        #     [user.email],
-        #     fail_silently=False,
-        # )
+        send_mail(
+            'Password Reset',
+            f'Please follow this link to reset your password: {reset_url}',
+            'noreply@example.com',
+            [user.email],
+            fail_silently=False,
+        )
         return Response({
             "err": 0,
             "errMessage": "",
