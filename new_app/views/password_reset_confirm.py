@@ -46,6 +46,8 @@ class PasswordResetConfirmView(FormView):
         except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
             pass
 
+        if self.user.password_reset_timestamp == None:
+            return self.form_invalid()
         # Check if the link has expired
         default = 10 * 60 * 5  # 10 minutes
         expiration_time = getattr(settings, 'PASSWORD_RESET_EXPIRATION_TIME', default)
@@ -75,13 +77,15 @@ class PasswordResetConfirmView(FormView):
         except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
             pass
 
+        if self.user.password_reset_timestamp == None:
+            return render(self.request, 'password_reset_invalid.html', {'login_url': '/login/forgot'})
         # Check if the link has expired
-        default = 10 * 60 * 5 # 10 minutes
+        default = 10 * 60 * 5  # 10 minutes
         expiration_time = getattr(settings, 'PASSWORD_RESET_EXPIRATION_TIME', default)
         expiration_diff = (timezone.now() - self.user.password_reset_timestamp).total_seconds()
-        print('self.user', self.user)
-        print('default_token_generator.check_token(self.user, self.token)', default_token_generator.check_token(self.user, self.token))
-        if self.user is not None and default_token_generator.check_token(self.user, self.token):
+        print((timezone.now() - self.user.password_reset_timestamp).total_seconds())
+        if self.user is not None and default_token_generator.check_token(self.user, self.token) \
+                and expiration_diff <= expiration_time:
             self.validlink = True
 
         if not self.validlink:
