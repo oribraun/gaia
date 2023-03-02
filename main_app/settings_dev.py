@@ -249,3 +249,11 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+
+# send_mail(
+#     'Subject here',
+#     'Here is the message.',
+#     'ori@gaialabs.ai',
+#     ['ori@gaialabs.ai'],
+#     fail_silently=False,
+# )

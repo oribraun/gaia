@@ -102,6 +102,34 @@ class PasswordResetConfirmView(FormView):
         kwargs['user'] = self.user
         return kwargs
 
+class VerifyEmailView(FormView):
+    template_name = 'verify_email.html'
+    form_class = SetPasswordForm
+    success_url = '/login'
+
+    @method_decorator(csrf_protect)
+    def get(self, request, *args, **kwargs):
+        self.user = None
+        self.token = kwargs.get('token')
+        self.uidb64 = kwargs.get('uidb64')
+        self.validlink = False
+
+        try:
+            uid = urlsafe_base64_decode(self.uidb64)
+            self.user = UserModel._default_manager.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
+            pass
+        if self.user:
+            self.user.email_confirmed = True
+            self.user.save()
+
+        return super().get(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.user
+        return kwargs
+
 from django.views.decorators.debug import sensitive_post_parameters
 from django.contrib import messages
 

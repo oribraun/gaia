@@ -187,7 +187,7 @@ class MyEmailSerializer(serializers.Serializer):
             try:
                 user = User.objects.get(email=email)
             except User.DoesNotExist:
-                msg = _('not a valid email address.')
+                msg = _('not a valid email address or email does not exist.')
                 raise serializers.ValidationError(msg, code='valid email')
             attrs['user'] = user
             return attrs
