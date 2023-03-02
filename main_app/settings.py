@@ -38,9 +38,6 @@ ALLOWED_HOSTS = [
     'gaialabs.ai',
     'ip.gaialabs.ai',
     'home.gaialabs.ai',
-    '13.230.184.34',
-    '43.206.228.120',
-    'ec2-13-230-105-89.ap-northeast-1.compute.amazonaws.com',
     # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 
@@ -50,7 +47,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'knox.auth.TokenAuthentication',
     ),
@@ -180,8 +177,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
-    'http://13.230.184.34',
-    'http://43.206.228.120',
     'http://gaialabs.ai',
     'http://ip.gaialabs.ai',
     'http://home.gaialabs.ai',
@@ -200,9 +195,6 @@ CSRF_TRUSTED_ORIGINS = [
     'http://gaialabs.ai',
     'http://ip.gaialabs.ai',
     'http://home.gaialabs.ai',
-    'http://13.230.184.34',
-    'http://43.206.228.120',
-    'https://ec2-13-230-184-34.ap-northeast-1.compute.amazonaws.com',
     'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 # must have this CSRF_HEADER_NAME 'CSRF_COOKIE' when using chrome extension
