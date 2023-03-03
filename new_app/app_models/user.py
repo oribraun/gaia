@@ -10,8 +10,8 @@ from .company import Company
 from django.contrib.auth.models import AbstractUser
 
 class User(BaseModel, AbstractUser):
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = []
     TRAIL = 1
     BASIC = 2
     ADVANCE =3
