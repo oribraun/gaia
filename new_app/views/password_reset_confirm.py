@@ -94,7 +94,6 @@ class PasswordResetConfirmView(FormView):
             return render(self.request, 'password_reset_invalid.html', {'login_url': '/login/forgot'})
             # raise ValidationError('Password reset link is invalid.')
 
-        print('self.validlink', self.validlink)
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
