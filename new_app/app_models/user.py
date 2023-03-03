@@ -24,7 +24,7 @@ class User(BaseModel, AbstractUser):
         (PRO, 'Pro'),
     )
 
-    email = models.EmailField(max_length=255, unique=True)
+    # email = models.EmailField(max_length=255, unique=True)
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=False, null=False, default=TRAIL)
     password_reset_timestamp = models.DateTimeField(null=True, blank=True)
     api_total_requests = models.IntegerField(null=False, blank=True, default=0)
