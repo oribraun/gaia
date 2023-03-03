@@ -5,6 +5,7 @@ from new_app.models import User
 from new_app.app_models.company import Company
 from new_app.app_models.user_privacy_model_prompt import UserPrivacyModelPrompt
 from new_app.app_models.user_prompt import UserPrompt
+from new_app.app_models.user_activity import UserActivity
 from new_app.app_models.company_admin import CompanyAdmin
 
 # Register your models here.
@@ -104,3 +105,24 @@ class CompanyAdminForm(admin.ModelAdmin):
         fields = ('user','company',)
 
 admin.site.register(CompanyAdmin, CompanyAdminForm)
+
+class UserActivityForm(admin.ModelAdmin):
+    fieldsets = (
+        (None, {'fields': ('user','prompt','ip_address',)}),
+    )
+
+    list_display = ("user", 'action_type', 'status', 'data','ip_address',)
+    list_filter = ("user", 'action_type',)
+    class Meta:
+        model = UserActivity
+        fields = ("user", 'action_type', 'status', 'data','ip_address',)
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+admin.site.register(UserActivity, UserActivityForm)

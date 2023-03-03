@@ -12,7 +12,7 @@ from new_app.api.user_auth_api.upload_file import UploadFileApi
 from new_app.api.user_auth_api.analyze import AnalyzeApi
 from new_app.api.user_auth_api.get_dashboard import GetDashboardApi
 from new_app.api.user_auth_api.chat_gpt_api import ChatGptApi
-from new_app.api.auth import LoginAPI, RegisterAPI, LogoutAPI, ForgotPasswordAPI
+from new_app.api.auth import LoginAPI, RegisterAPI, LogoutAPI, ForgotPasswordAPI, ResendVerifyEmailApi
 from django.urls import path, re_path, include
 from django.views.decorators.csrf import csrf_exempt
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path(API_AUTH_BASE + 'forgot-pass', ForgotPasswordAPI.as_view(), name='forgot-pass'),
     path(API_AUTH_BASE + 'password-reset/<uidb64>/<token>', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path(API_AUTH_BASE + 'verify-email/<uidb64>/<token>', VerifyEmailView.as_view(), name='verify_email'),
+    path(API_AUTH_BASE + 'resend_verify_email', ResendVerifyEmailApi.as_view(), name='resend_verify_email'),
     path(API_AUTH_BASE + 'user', UserAPI.as_view(), name='user'),
     path(API_AUTH_BASE + 'change-password', ChangePasswordApi.as_view(), name='change-password'),
     # re_path(r'^getData/(\d+)$', get_data),

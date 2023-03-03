@@ -18,7 +18,8 @@ from new_app.serializers import UserSerializer, RegisterSerializer, LoginSeriali
 from knox.views import LoginView as KnoxLoginView
 from new_app.api.jsonResponse import baseHttpResponse
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from django.core.mail import send_mail
+from new_app.app_models.user_activity import UserActivity
+from new_app.email_service import EmailService
 
 token_delta = relativedelta(days=1)
 # Register API
@@ -38,23 +39,13 @@ class RegisterAPI(generics.GenericAPIView):
                 # "csrftoken": get_token(request),
                 # "csrftoken_exp": (datetime.now() + token_delta).replace(microsecond=0),
             }
-            token = default_token_generator.make_token(user)
-            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
 
-            # Generate the password reset URL
-            verify_url = reverse('verify_email', kwargs={
-                'uidb64': uidb64,
-                'token': token,
-            })
-            verify_url = self.request.build_absolute_uri(verify_url)
+            EmailService.sendRegisterEmail(request, user)
+            UserActivity.create_message(request, 200)
 
             # user.password_reset_timestamp = timezone.now()
             # user.save()
-            send_email(
-                user.email,
-                'Gaia verification',
-                f'Please follow this link to verify your email: {verify_url}',
-            )
+
             response.data = obj
             return Response(response.dict())
         else:
@@ -80,8 +71,11 @@ class LoginAPI(generics.GenericAPIView):
             if not user.email_confirmed:
                 response.err = 1
                 response.errMessage = 'please verify your email before login'
+                response.data = {'verify': True}
+                UserActivity.create_message(request, user, 200, response.dict())
                 return Response(response.dict())
             login(request, user)
+            UserActivity.create_message(request, user, 200)
             obj = {
                 "user": UserSerializer(user, context=self.get_serializer_context()).data,
                 "token": AuthToken.objects.create(user)[1],
@@ -94,6 +88,7 @@ class LoginAPI(generics.GenericAPIView):
         else:
             response.err = 1
             response.errMessage = 'Unable to log in with provided credentials.'
+            UserActivity.create_message(request, None, 200, response.dict())
             return Response(response.dict())
 
 class LogoutAPI(generics.GenericAPIView):
@@ -102,6 +97,7 @@ class LogoutAPI(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         logout(request)
+        UserActivity.create_message(request, request.user, 200)
         return Response({
             "success": True
         })
@@ -116,34 +112,40 @@ class ForgotPasswordAPI(generics.GenericAPIView):
             response = baseHttpResponse()
             response.err = 1
             response.errMessage = 'not a valid email address or email does not exist.'
+            UserActivity.create_message(request, None, 200, response.dict())
             return Response(response.dict())
         user = serializer.validated_data['user']
 
-        token = default_token_generator.make_token(user)
-        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-
-        # Generate the password reset URL
-        reset_url = reverse('password_reset_confirm', kwargs={
-            'uidb64': uidb64,
-            'token': token,
-        })
-        reset_url = self.request.build_absolute_uri(reset_url)
-
-        user.password_reset_timestamp = timezone.now()
-        user.save()
-        print('reset_url', reset_url)
         # Send the password reset email
-        send_email(
-            user.email,
-            'Password Reset',
-            f'Please follow this link to reset your password: {reset_url}',
-        )
+        EmailService.sendPasswordResetEmail(request, user)
+
+        UserActivity.create_message(request, user, 200)
         return Response({
             "err": 0,
-            "errMessage": "",
-            "reset_url": reset_url
+            "errMessage": ""
         })
 
+class ResendVerifyEmailApi(generics.GenericAPIView):
+    serializer_class = ForgotPasswordSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = MyEmailSerializer(data=request.data)
+        valid = serializer.is_valid(raise_exception=False)
+        if not valid:
+            response = baseHttpResponse()
+            response.err = 1
+            response.errMessage = 'not a valid email address or email does not exist.'
+            UserActivity.create_message(request, None, 200, response.dict())
+            return Response(response.dict())
+        user = serializer.validated_data['user']
+
+        EmailService.sendRegisterEmail(request, user)
+
+        UserActivity.create_message(request, user, 200)
+        return Response({
+            "err": 0,
+            "errMessage": ""
+        })
 class LoginAPI1(KnoxLoginView):
     permission_classes = (permissions.AllowAny,)
 
@@ -154,15 +156,4 @@ class LoginAPI1(KnoxLoginView):
         login(request, user)
         return super(LoginAPI, self).post(request, format=None)
 
-
-
-
-def send_email(emil, header, message):
-    send_mail(
-        header,
-        message,
-        'ori@gaialabs.ai',
-        [emil],
-        fail_silently=False,
-    )
 
