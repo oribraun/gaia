@@ -20,7 +20,7 @@ class EmailService():
         })
         verify_url = request.build_absolute_uri(verify_url)
 
-        EmailService.send_email_thread(
+        EmailService.send_email(
             user.email,
             'Gaia verification',
             f'Please follow this link to verify your email: {verify_url}',
@@ -41,7 +41,7 @@ class EmailService():
         user.password_reset_timestamp = timezone.now()
         user.save()
 
-        EmailService.send_email_thread(
+        EmailService.send_email(
             user.email,
             'Password Reset',
             f'Please follow this link to reset your password: {reset_url}',
@@ -49,6 +49,7 @@ class EmailService():
 
     @staticmethod
     def send_email(email, subject, message):
+        print('send_email')
         send_mail(
             subject,
             message,
