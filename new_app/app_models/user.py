@@ -10,6 +10,8 @@ from .company import Company
 from django.contrib.auth.models import AbstractUser
 
 class User(BaseModel, AbstractUser):
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
     TRAIL = 1
     BASIC = 2
     ADVANCE =3
@@ -21,6 +23,8 @@ class User(BaseModel, AbstractUser):
         (ADVANCE, 'Advance'),
         (PRO, 'Pro'),
     )
+
+    email = models.EmailField(max_length=255, unique=True)
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=False, null=False, default=TRAIL)
     password_reset_timestamp = models.DateTimeField(null=True, blank=True)
     api_total_requests = models.IntegerField(null=False, blank=True, default=0)
