@@ -26,7 +26,7 @@ class MyUserAdmin(UserAdmin):
 
 UserAdmin.list_display += ('role','company','created','modified',)  # don't forget the commas
 UserAdmin.list_filter += ('role','company',)
-UserAdmin.fieldsets += (('Extra Fields', {'fields': ('role','company', )}),)
+UserAdmin.fieldsets += (('Extra Fields', {'fields': ('role','company', 'email_confirmed', )}),)
 admin.site.register(User, UserAdmin)
 
 

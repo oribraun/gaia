@@ -195,7 +195,7 @@ CORS_ALLOWED_ORIGIN = [
     # 'http://localhost:4201'
 ]
 CSRF_TRUSTED_ORIGINS = [
-    # 'http://localhost:4200',
+    'http://localhost:4200',
     'http://localhost:4201',
     'http://gaialabs.ai',
     'http://ip.gaialabs.ai',
