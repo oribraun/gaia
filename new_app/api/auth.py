@@ -96,8 +96,8 @@ class LogoutAPI(generics.GenericAPIView):
     serializer_class = LogoutSerializer
 
     def post(self, request, *args, **kwargs):
-        logout(request)
         UserActivity.create_message(request, request.user, 200)
+        logout(request)
         return Response({
             "success": True
         })

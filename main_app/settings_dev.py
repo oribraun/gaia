@@ -188,7 +188,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://aws.gaialabs.ai',
     # 'https://chat.openai.com',
     'https://ec2-13-230-184-34.ap-northeast-1.compute.amazonaws.com',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
+    'chrome-extension://gagdcpbjnijopmfdodmienpomniggmbn'
 ]
 CORS_ALLOWED_ORIGIN = [
     # 'http://localhost:4200',
@@ -202,7 +203,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://aws.gaialabs.ai',
 #     'https://chat.openai.com',
     'https://ec2-13-230-184-34.ap-northeast-1.compute.amazonaws.com',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
+    'chrome-extension://gagdcpbjnijopmfdodmienpomniggmbn'
 ]
 
 # must have this CSRF_HEADER_NAME 'CSRF_COOKIE' when using chrome extension

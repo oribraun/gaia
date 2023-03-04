@@ -158,3 +158,20 @@ class ChatGptApi(BaseUserAuthApi):
                 yield exception
 
         return StreamingHttpResponse(stream_response(), content_type='application/json')
+
+    def conversation(self):
+        completion = openai.Completion.create(engine="davinci", prompt="", max_tokens=0, n=1, stop=None,
+                                              temperature=0.0, stream=True)
+        conversation_id = completion['id']
+
+        prompt = "Hello, how are you?"
+        response = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=1024, n=1, stop=None,
+                                            temperature=0.5, stream=False, context=conversation_id)
+        print(response.choices[0].text)
+
+        prompt = "I'm doing well, thanks for asking. How about you?"
+        response = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=1024, n=1, stop=None,
+                                            temperature=0.5, stream=False, context=conversation_id)
+        print(response.choices[0].text)
+
+

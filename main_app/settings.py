@@ -184,7 +184,8 @@ CORS_ORIGIN_WHITELIST = [
     # 'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
 ]
 CORS_ALLOWED_ORIGIN = [
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
+    'chrome-extension://gagdcpbjnijopmfdodmienpomniggmbn'
     'http://gaialabs.ai',
     'http://ip.gaialabs.ai',
     'http://home.gaialabs.ai',
@@ -195,7 +196,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://gaialabs.ai',
     'http://ip.gaialabs.ai',
     'http://home.gaialabs.ai',
-    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj'
+    'chrome-extension://ghkjadifhfhebgfbcmgoklkkhapjjmbj',
+    'chrome-extension://gagdcpbjnijopmfdodmienpomniggmbn'
 ]
 # must have this CSRF_HEADER_NAME 'CSRF_COOKIE' when using chrome extension
 CSRF_HEADER_NAME = 'CSRF_COOKIE'
