@@ -25,6 +25,26 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
+    def validate(self, attrs):
+        email = attrs.get('email')
+        username = attrs.get('username')
+        password = attrs.get('password')
+
+        domain = ''
+        if email:
+            domain = email[email.index('@') + 1:]
+        company = None
+        try:
+            company = Company.objects.get(domain=domain)
+        except:
+            pass
+
+        if validateEmail(email):
+            return attrs
+        else:
+            msg = _('please provide valid email address')
+            raise exceptions.ValidationError(msg)
+
     def create(self, validated_data):
         email = validated_data['email']
         domain = email[email.index('@') + 1:]
