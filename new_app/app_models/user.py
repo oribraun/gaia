@@ -26,6 +26,18 @@ class User(BaseModel, AbstractUser):
     )
 
     email = models.EmailField(_("email address"), blank=True, unique=True)
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        unique=False,
+        help_text=_(
+            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+        ),
+        validators=[AbstractUser.username_validator],
+        error_messages={
+            "unique": _("A user with that username already exists."),
+        },
+    )
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=False, null=False, default=TRAIL)
     password_reset_timestamp = models.DateTimeField(null=True, blank=True)
     api_total_requests = models.IntegerField(null=False, blank=True, default=0)

@@ -49,8 +49,14 @@ class PrivacyModelApi(BaseUserAuthApi):
             'suggested_model': ' Privacy model V1',
             'pass_privacy': False,
         }
-        if return_obj["pass_privacy"]:
-            UserPrivacyModelPrompt.objects.create(user=request.user, prompt=prompt, company=company)
+        # if not return_obj["pass_privacy"]:
+        #     prompt = 'removed'
+        UserPrivacyModelPrompt.objects.create(
+            user=request.user,
+            prompt=prompt,
+            company=company,
+            pass_privacy=return_obj["pass_privacy"]
+        )
 
         # user_prompt.save()
         # print('user_prompt', user_prompt.user)

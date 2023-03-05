@@ -18,8 +18,9 @@ class CollectUserPromptApi(BaseUserAuthApi):
         ip_address = self.get_client_ip(request=request)
         user = request.user
         company = user.company
-        if not company and prompt:
-            UserPrompt.objects.create(user=request.user, prompt=prompt, ip_address=ip_address)
+        # if not company and prompt:
+        #     UserPrompt.objects.create(user=request.user, prompt=prompt, ip_address=ip_address)
+        UserPrompt.objects.create(user=request.user, prompt=prompt, ip_address=ip_address)
 
         # user_prompt.save()
         # print('user_prompt', user_prompt.user)

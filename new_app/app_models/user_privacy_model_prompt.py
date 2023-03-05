@@ -10,3 +10,4 @@ class UserPrivacyModelPrompt(BaseModel):
     prompt = models.TextField()
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
     ip_address = models.GenericIPAddressField(null=True)
+    pass_privacy = models.BooleanField(default=False)

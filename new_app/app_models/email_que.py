@@ -10,3 +10,8 @@ class EmailQue(BaseModel):
     sender = models.CharField(max_length=200)
     recipient_list = models.JSONField(default=list)
     sent = models.BooleanField(default=False)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['sent']),
+        ]
