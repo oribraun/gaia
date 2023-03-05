@@ -10,6 +10,6 @@ def start():
             item.subject,
             item.message,
             item.sender,
-            json.load(item.recipient_list),
+            item.recipient_list,
         )
         EmailService.set_sent(item, True)

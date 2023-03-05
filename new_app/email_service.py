@@ -26,7 +26,7 @@ class EmailService():
         verify_url = request.build_absolute_uri(verify_url)
         if os.name == 'nt':  # for windows no cron jobs
             EmailService.send_email(
-                user.email,
+                [user.email],
                 'Gaia verification',
                 f'Please follow this link to verify your email: {verify_url}',
                 main_sender
@@ -56,7 +56,7 @@ class EmailService():
 
         if os.name == 'nt':  # for windows no cron jobs
             EmailService.send_email(
-                user.email,
+                [user.email],
                 'Password Reset',
                 f'Please follow this link to reset your password: {reset_url}',
                 main_sender
@@ -70,12 +70,12 @@ class EmailService():
             )
 
     @staticmethod
-    def send_email(email, subject, message, sender):
+    def send_email(recipient_list, subject, message, sender):
         send_mail(
             subject,
             message,
             sender,
-            [email],
+            recipient_list,
             fail_silently=False,
         )
 
@@ -87,7 +87,7 @@ class EmailService():
             target=EmailService.send_email,
 
             kwargs={
-                "email": email,
+                "recipient_list": [email],
                 "subject": subject,
                 "message": message,
                 "sender": main_sender
