@@ -9,7 +9,7 @@ import threading
 import os
 
 main_sender = 'ori@gaialabs.ai'
-
+disable_db = True
 
 class EmailService():
 
@@ -24,7 +24,7 @@ class EmailService():
             'token': token,
         })
         verify_url = request.build_absolute_uri(verify_url)
-        if os.name == 'nt':  # for windows no cron jobs
+        if os.name == 'nt' or disable_db:  # for windows no cron jobs
             EmailService.send_email(
                 [user.email],
                 'Gaia verification',
@@ -54,7 +54,7 @@ class EmailService():
         user.password_reset_timestamp = timezone.now()
         user.save()
 
-        if os.name == 'nt':  # for windows no cron jobs
+        if os.name == 'nt' or disable_db:  # for windows no cron jobs
             EmailService.send_email(
                 [user.email],
                 'Password Reset',
