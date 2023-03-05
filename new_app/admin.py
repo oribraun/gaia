@@ -6,6 +6,7 @@ from new_app.app_models.company import Company
 from new_app.app_models.user_privacy_model_prompt import UserPrivacyModelPrompt
 from new_app.app_models.user_prompt import UserPrompt
 from new_app.app_models.user_activity import UserActivity
+from new_app.app_models.email_que import EmailQue
 from new_app.app_models.company_admin import CompanyAdmin
 
 # Register your models here.
@@ -68,7 +69,7 @@ class UserPromptsForm(admin.ModelAdmin):
         return False
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        return True
 
 admin.site.register(UserPrompt, UserPromptsForm)
 
@@ -89,7 +90,7 @@ class UserPrivacyModelPromptForm(admin.ModelAdmin):
         return False
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        return True
 
 admin.site.register(UserPrivacyModelPrompt, UserPrivacyModelPromptForm)
 
@@ -123,6 +124,27 @@ class UserActivityForm(admin.ModelAdmin):
         return False
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        return True
 
 admin.site.register(UserActivity, UserActivityForm)
+
+class EmailQueForm(admin.ModelAdmin):
+    fieldsets = (
+        (None, {'fields': ('subject','message','recipient_list','sent',)}),
+    )
+
+    list_display = ('subject','message','recipient_list','sent',)
+    list_filter = ("subject", 'sent',)
+    class Meta:
+        model = EmailQue
+        fields = ('subject','message','recipient_list','sent',)
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return True
+
+admin.site.register(EmailQue, EmailQueForm)

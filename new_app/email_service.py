@@ -4,7 +4,12 @@ from django.utils.encoding import force_bytes
 from django.urls import reverse
 from django.core.mail import send_mail
 from django.utils import timezone
+from new_app.app_models.email_que import EmailQue
 import threading
+import os
+
+main_sender = 'ori@gaialabs.ai'
+
 
 class EmailService():
 
@@ -19,12 +24,20 @@ class EmailService():
             'token': token,
         })
         verify_url = request.build_absolute_uri(verify_url)
-
-        EmailService.send_email(
-            user.email,
-            'Gaia verification',
-            f'Please follow this link to verify your email: {verify_url}',
-        )
+        if os.name == 'nt':  # for windows no cron jobs
+            EmailService.send_email(
+                user.email,
+                'Gaia verification',
+                f'Please follow this link to verify your email: {verify_url}',
+                main_sender
+            )
+        else:
+            EmailService.add_email_to_db(
+                subject='Gaia verification',
+                message=f'Please follow this link to verify your email: {verify_url}',
+                sender=main_sender,
+                recipient_list=[user.email]
+            )
 
     @staticmethod
     def sendPasswordResetEmail(request, user):
@@ -41,23 +54,30 @@ class EmailService():
         user.password_reset_timestamp = timezone.now()
         user.save()
 
-        EmailService.send_email(
-            user.email,
-            'Password Reset',
-            f'Please follow this link to reset your password: {reset_url}',
-        )
+        if os.name == 'nt':  # for windows no cron jobs
+            EmailService.send_email(
+                user.email,
+                'Password Reset',
+                f'Please follow this link to reset your password: {reset_url}',
+                main_sender
+            )
+        else:
+            EmailService.add_email_to_db(
+                subject='Password Reset',
+                message=f'Please follow this link to reset your password: {reset_url}',
+                sender=main_sender,
+                recipient_list=[user.email]
+            )
 
     @staticmethod
-    def send_email(email, subject, message):
-        print('send_email')
+    def send_email(email, subject, message, sender):
         send_mail(
             subject,
             message,
-            'ori@gaialabs.ai',
+            sender,
             [email],
             fail_silently=False,
         )
-
 
     @staticmethod
     def send_email_thread(email, subject, message):
@@ -69,5 +89,20 @@ class EmailService():
             kwargs={
                 "email": email,
                 "subject": subject,
-                "message": message
+                "message": message,
+                "sender": main_sender
             }).start()
+
+    @staticmethod
+    def add_email_to_db(subject, message, sender, recipient_list):
+        EmailQue.objects.create(
+            subject=subject,
+            message=message,
+            sender=sender,
+            recipient_list=recipient_list
+        )
+
+    @staticmethod
+    def set_sent(email_query_set: EmailQue, sent: bool):
+        email_query_set.sent = sent
+        email_query_set.save()

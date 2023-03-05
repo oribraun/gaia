@@ -9,5 +9,7 @@ uwsgi
 whitenoise
 dsframework==0.1.93
 torch==1.13.1
+# torch==1.13.1 --no-cache-dir
 adapter-transformers==3.1.0
 openai
+django_crontab

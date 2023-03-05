@@ -41,7 +41,7 @@ class RegisterAPI(generics.GenericAPIView):
             }
 
             EmailService.sendRegisterEmail(request, user)
-            UserActivity.create_message(request, 200)
+            UserActivity.create_message(request, user, 200)
 
             # user.password_reset_timestamp = timezone.now()
             # user.save()

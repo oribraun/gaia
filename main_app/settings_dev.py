@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
     'corsheaders',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -252,6 +253,10 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 
+CRONJOBS = [
+    ('* * * * *', 'new_app.cron_jobs.send_emails.start')
+]
+# python manage.py crontab add
 # send_mail(
 #     'Subject here',
 #     'Here is the message.',
