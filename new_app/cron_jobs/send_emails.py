@@ -4,12 +4,11 @@ from new_app.email_service import EmailService
 def start():
     print('started cron')
     list = EmailQue.objects.filter(sent=False)
-    for i in list:
-        query_set = list[i]
+    for item in list.iterator():
         EmailService.send_email(
-            query_set.subject,
-            query_set.message,
-            query_set.sender,
-            query_set.recipient_list,
+            item.subject,
+            item.message,
+            item.sender,
+            item.recipient_list,
         )
-        EmailService.set_sent(query_set, True)
+        EmailService.set_sent(item, True)
