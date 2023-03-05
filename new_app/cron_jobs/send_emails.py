@@ -2,6 +2,7 @@ from new_app.app_models.email_que import EmailQue
 from new_app.email_service import EmailService
 
 def start():
+    print('started cron')
     list = EmailQue.objects.filter(sent=False)
     for i in list:
         query_set = list[i]
