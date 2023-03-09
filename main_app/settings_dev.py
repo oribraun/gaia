@@ -123,7 +123,7 @@ DATABASES = {
         'NAME':  os.environ['MYSQL_DB'],
         'USER':  os.environ['MYSQL_USER'],
         'PASSWORD': os.environ['MYSQL_PASSWORD'],
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': os.environ['MYSQL_HOST'],   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
