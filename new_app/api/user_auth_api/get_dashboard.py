@@ -74,6 +74,7 @@ class GetDashboardApi(BaseUserAuthApi):
         if company:
             response.results_type = 'company_user'
             response.company_total_prompts = UserPrompt.objects.filter(user__company=company).count()
+            response.company_total_privacy_model_prompts = UserPrivacyModelPrompt.objects.filter(company=company).count()
         print('company_admin', company_admin)
         if company_admin:
             response.results_type = 'company_admin'
@@ -95,6 +96,7 @@ class GetDashboardApi(BaseUserAuthApi):
             companies = Company.objects.all()[admin_company_offset:admin_company_offset + admin_company_limit]\
                 .values("id", "name", "domain")
             response.companies = list(companies)
+            response.total_companies = Company.objects.all().count()
             response.results_type = 'gaia_admin'
 
         # user_prompts = self.getAll(

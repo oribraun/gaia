@@ -12,6 +12,7 @@ from new_app.api.user_auth_api.upload_file import UploadFileApi
 from new_app.api.user_auth_api.analyze import AnalyzeApi
 from new_app.api.user_auth_api.get_dashboard import GetDashboardApi
 from new_app.api.user_auth_api.chat_gpt_api import ChatGptApi
+from new_app.api.user_auth_api.user_settings import UserGetSettingsApi, UserSetSettingsApi
 from new_app.api.auth import LoginAPI, RegisterAPI, LogoutAPI, ForgotPasswordAPI, ResendVerifyEmailApi
 from django.urls import path, re_path, include
 from django.views.decorators.csrf import csrf_exempt
@@ -39,5 +40,9 @@ urlpatterns = [
     re_path(rf'^{API_BASE}collect-user-prompt$', CollectUserPromptApi.as_view()),
     re_path(rf'^{API_BASE}get-dashboard$', GetDashboardApi.as_view()),
     re_path(rf'^{API_BASE}get-answer$', ChatGptApi.as_view()),
+    re_path(rf'^{API_BASE}set-settings$', UserSetSettingsApi.as_view()),
+    re_path(rf'^{API_BASE}get-settings$', UserGetSettingsApi.as_view()),
     re_path(rf'^{API_BASE}public$', PublicApi.as_view()),
+
+    path(API_BASE + 'ca/', include('new_app.api.company_admin_api.urls')),
 ]

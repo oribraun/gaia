@@ -6,6 +6,7 @@ from new_app.app_models.company import Company
 from new_app.app_models.user_privacy_model_prompt import UserPrivacyModelPrompt
 from new_app.app_models.user_prompt import UserPrompt
 from new_app.app_models.user_activity import UserActivity
+from new_app.app_models.user_setting import UserSetting
 from new_app.app_models.email_que import EmailQue
 from new_app.app_models.company_admin import CompanyAdmin
 
@@ -148,3 +149,25 @@ class EmailQueForm(admin.ModelAdmin):
         return True
 
 admin.site.register(EmailQue, EmailQueForm)
+
+class UserSettingsForm(admin.ModelAdmin):
+    fieldsets = (
+        (None, {'fields': ('user', 'key', 'data',)}),
+    )
+
+    list_display = ('user', 'key', 'data',)
+    list_filter = ('user', 'key',)
+    class Meta:
+        model = UserSetting
+        fields = ('user', 'key', 'data',)
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return True
+
+admin.site.register(UserSetting, UserSettingsForm)
+

@@ -1,4 +1,4 @@
-html{height:100%;width:100%}html body{height:100%;width:100%;margin:0;padding:0;background:#efefef}html body .pointer{cursor:pointer}html body .gaia-tooltip{--bs-tooltip-bg: #fff;--bs-tooltip-color: #000}/*!
+html{height:100%;width:100%}html body{height:100%;width:100%;margin:0;padding:0;background:#efefef}html body .pointer{cursor:pointer}html body .no-pointer{cursor:inherit}html body .gaia-tooltip{--bs-tooltip-bg: #fff;--bs-tooltip-color: #000}/*!
  * Bootstrap  v5.3.0-alpha1 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
