@@ -2,7 +2,7 @@ import random
 from django.core import serializers
 from django.db.models import Count, Sum
 from django.http import HttpResponse, JsonResponse
-from .base_api import BaseUserAuthApi
+from .base_api import BaseCompanyAuthApi
 from new_app.api.jsonResponse import baseHttpResponse
 from new_app.app_models.company import Company
 from new_app.app_models.user_prompt import UserPrompt
@@ -11,7 +11,7 @@ from new_app.app_models.user import User
 from new_app.app_models.company_admin import CompanyAdmin
 
 
-class GetUserInfoApi(BaseUserAuthApi):
+class GetUserInfoApi(BaseCompanyAuthApi):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     # permission_classes = [IsAuthenticated]
 
@@ -47,8 +47,8 @@ class GetUserInfoApi(BaseUserAuthApi):
         ip_address = self.get_client_ip(request=request)
 
         response.total_user_prompts = UserPrompt.objects.filter(user=user).count()
-        user_prompts = UserPrompt.objects.filter(user=user)[
-                       user_prompts_offset:user_prompts_offset + user_prompts_limit] \
-            .values("prompt")
+        start = user_prompts_offset * user_prompts_limit
+        end = start + user_prompts_limit
+        user_prompts = UserPrompt.objects.filter(user=user)[start:end].values("prompt")
         response.user_prompts = list(user_prompts)
         return response

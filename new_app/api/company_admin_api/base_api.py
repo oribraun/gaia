@@ -6,7 +6,7 @@ from new_app.api.jsonResponse import baseHttpResponse
 from new_app.app_models.company_admin import CompanyAdmin
 from django.http import HttpResponse, JsonResponse
 
-class BaseUserAuthApi(BaseApi):
+class BaseCompanyAuthApi(BaseApi):
     authentication_classes = (TokenAuthentication, SessionAuthentication)
     permission_classes = [permissions.IsAuthenticated,]
 

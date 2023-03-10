@@ -13,6 +13,7 @@ from new_app.api.user_auth_api.analyze import AnalyzeApi
 from new_app.api.user_auth_api.get_dashboard import GetDashboardApi
 from new_app.api.user_auth_api.chat_gpt_api import ChatGptApi
 from new_app.api.user_auth_api.user_settings import UserGetSettingsApi, UserSetSettingsApi
+from new_app.api.user_auth_api.get_user_prompts import GetUserPromptsApi
 from new_app.api.auth import LoginAPI, RegisterAPI, LogoutAPI, ForgotPasswordAPI, ResendVerifyEmailApi
 from django.urls import path, re_path, include
 from django.views.decorators.csrf import csrf_exempt
@@ -33,16 +34,22 @@ urlpatterns = [
     path(API_AUTH_BASE + 'change-password', ChangePasswordApi.as_view(), name='change-password'),
     # re_path(r'^getData/(\d+)$', get_data),
     # re_path(r'^getData', login_required(get_data)),
+
     re_path(rf'^{API_BASE}prompt_optimizer$', PromptOptimizerApi.as_view()),
-    re_path(rf'^{API_BASE}upload$', UploadFileApi.as_view()),
-    re_path(rf'^{API_BASE}analyze$', AnalyzeApi.as_view()),
-    re_path(rf'^{API_BASE}privacy-model$', PrivacyModelApi.as_view()),
-    re_path(rf'^{API_BASE}collect-user-prompt$', CollectUserPromptApi.as_view()),
-    re_path(rf'^{API_BASE}get-dashboard$', GetDashboardApi.as_view()),
-    re_path(rf'^{API_BASE}get-answer$', ChatGptApi.as_view()),
-    re_path(rf'^{API_BASE}set-settings$', UserSetSettingsApi.as_view()),
-    re_path(rf'^{API_BASE}get-settings$', UserGetSettingsApi.as_view()),
+    # re_path(rf'^{API_BASE}upload$', UploadFileApi.as_view()),
+    # re_path(rf'^{API_BASE}analyze$', AnalyzeApi.as_view()),
+    # re_path(rf'^{API_BASE}privacy-model$', PrivacyModelApi.as_view()),
+    # re_path(rf'^{API_BASE}collect-user-prompt$', CollectUserPromptApi.as_view()),
+    # re_path(rf'^{API_BASE}get-dashboard$', GetDashboardApi.as_view()),
+    # re_path(rf'^{API_BASE}get-answer$', ChatGptApi.as_view()),
+    # re_path(rf'^{API_BASE}set-settings$', UserSetSettingsApi.as_view()),
+    # re_path(rf'^{API_BASE}get-settings$', UserGetSettingsApi.as_view()),
+    # re_path(rf'^{API_BASE}get-user-prompts$', GetUserPromptsApi.as_view()),
     re_path(rf'^{API_BASE}public$', PublicApi.as_view()),
 
-    path(API_BASE + 'ca/', include('new_app.api.company_admin_api.urls')),
+    path(API_BASE + 'auth/', include('new_app.api.auth_api.urls')),
+
+    path(API_BASE + 'co/', include('new_app.api.company_admin_api.urls')),
+
+    path(API_BASE + 'us/', include('new_app.api.user_auth_api.urls')),
 ]

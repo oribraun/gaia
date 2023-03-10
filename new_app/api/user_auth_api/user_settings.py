@@ -13,7 +13,7 @@ class UserSetSettingsApi(BaseUserAuthApi):
         response = baseHttpResponse()
         key = request.data['key']
         data = request.data['data']
-        # ip_address = self.get_client_ip(request=request)
+        ip_address = self.get_client_ip(request=request)
         user = request.user
         try:
             s = UserSetting.objects.get(user=user, key=key)

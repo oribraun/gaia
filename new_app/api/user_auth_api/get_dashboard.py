@@ -65,8 +65,19 @@ class GetDashboardApi(BaseUserAuthApi):
         company_users_limit = 10
         admin_company_offset = 0
         admin_company_limit = 10
+        try:
+            user_prompts_offset = request.data['user_prompts_offset']
+            user_prompts_limit = request.data['user_prompts_limit']
+            company_users_offset = request.data['company_users_offset']
+            company_users_limit = request.data['company_users_limit']
+            admin_company_offset = request.data['admin_company_offset']
+            admin_company_limit = request.data['admin_company_limit']
+        except:
+            pass
         response.total_user_prompts = UserPrompt.objects.filter(user=user).count()
-        user_prompts = UserPrompt.objects.filter(user=user)[user_prompts_offset:user_prompts_offset + user_prompts_limit]\
+        start = user_prompts_offset * user_prompts_limit
+        end = start + user_prompts_limit
+        user_prompts = UserPrompt.objects.filter(user=user)[start:end]\
                 .values("prompt")
         response.user_prompts = list(user_prompts)
         response.results_type = 'user'
@@ -79,7 +90,9 @@ class GetDashboardApi(BaseUserAuthApi):
         if company_admin:
             response.results_type = 'company_admin'
             response.company_total_users = User.objects.filter(company=company).count()
-            company_users = User.objects.filter(company=company)[company_users_offset:company_users_offset + company_users_limit]\
+            start = company_users_offset * company_users_limit
+            end = start + company_users_limit
+            company_users = User.objects.filter(company=company)[start:end]\
                 .values("id", "username", "email")
             response.company_users = list(company_users)
             # https://riptutorial.com/django/example/30595/groub-by-----count-sum-django-orm-equivalent
@@ -93,7 +106,9 @@ class GetDashboardApi(BaseUserAuthApi):
                 .order_by('-count')
             response.company_top_privacy_prompt_users = list(company_top_privacy_prompt_users)
         if is_gaia_admin:
-            companies = Company.objects.all()[admin_company_offset:admin_company_offset + admin_company_limit]\
+            start = admin_company_offset * admin_company_limit
+            end = start + admin_company_limit
+            companies = Company.objects.all()[start:end]\
                 .values("id", "name", "domain")
             response.companies = list(companies)
             response.total_companies = Company.objects.all().count()
