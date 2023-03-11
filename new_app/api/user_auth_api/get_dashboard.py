@@ -43,7 +43,7 @@ class GetDashboardApi(BaseUserAuthApi):
         response = baseHttpResponse()
         user = request.user
         company = user.company
-        is_gaia_admin = user.is_superuser
+        is_gaia_admin = user.gaia_admin
         company_admin = False
         try:
             CompanyAdmin.objects.get(user=user)
