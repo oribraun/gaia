@@ -55,5 +55,5 @@ urlpatterns = [
 
     path(API_BASE + 'us/', include('new_app.api.user_auth_api.urls'), name='user'),
 
-    path(API_BASE + 'a/', include('new_app.api.admin_api.urls'), name='admin'),
+    path(API_BASE + 'adm/', include('new_app.api.admin_api.urls'), name='admin'),
 ]
