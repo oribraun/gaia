@@ -5,9 +5,14 @@ from .base import BaseModel
 
 # Create your models here.
 class Company(BaseModel):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     domain = models.CharField(max_length=100, unique=True, default=None, null=True)
     key = models.CharField(max_length=60, unique=True, null=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['domain']),
+        ]
 
     def save(self, *args, **kwargs):
         if not self.key:

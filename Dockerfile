@@ -1,6 +1,6 @@
 #--------- BEGIN DEVELOPER MODIFY FOR YOUR BUILD PROCESS ---------#
 #Do not change the "AS build_image" part on the FROM
-FROM python:3.8-slim AS build_image
+FROM python:3.9-slim AS build_image
 #FROM docker.io/library/model_artifcats AS build_image
 #Do not remove the BUILD_ACTION ARG, you can change its default value. You must use it in your build command in the RUN section for Jenkins to deploy your artifact.
 
@@ -23,23 +23,32 @@ WORKDIR /app
 ADD $GOOGLE_APPLICATION_CREDENTIALS $GOOGLE_APPLICATION_CREDENTIALS
 
 # Install basic packages and define virtual environment
-RUN apt-get -o Acquire::Max-FutureTime=86400 update
-RUN apt-get install -y --no-install-recommends build-essential gcc
+#RUN apt-get -o Acquire::Max-FutureTime=86400 update
+#RUN apt-get install -y --no-install-recommends build-essential gcc
+#RUN apt-get install libmysqlclient
+#RUN pip install --upgrade pip
+#RUN pip install --upgrade setuptools
+#RUN python -m venv /opt/venv
+
+RUN apt-get update
+RUN apt-get install python3-dev default-libmysqlclient-dev build-essential gcc  -y
+RUN apt-get install default-mysql-client -y
 RUN pip install --upgrade pip
 RUN python -m venv /opt/venv
 
 ENV PATH="/opt/venv/bin:$PATH"
-
 # Install required packages for the image
-ADD requirements_docker.txt /app/requirements.txt
+ADD requirements.txt /app/requirements.txt
 RUN pip ${PIP_ACTION} --no-cache-dir -r /app/requirements.txt
 
 # Add the application source code. Try to order them so that the folder which changes most would be last
 ADD ./main_app /app/main_app
 ADD ./new_app /app/new_app
-ADD ./privacy_classifier /app/privacy_classifier
-ADD ./db.sqlite3 /app/db.sqlite3
+#ADD ./privacy_classifier /app/privacy_classifier
+#ADD ./db.sqlite3 /app/db.sqlite3
 ADD ./manage.py /app/manage.py
+ADD ./uwsgi.ini /app/uwsgi.ini
+ADD ./.env /app/.env
 
 # Define user and group
 RUN groupadd -g 999 appuser && \
@@ -53,7 +62,7 @@ USER appuser
 
 #--------- BEGIN DEVELOPER MODIFY FOR YOUR DEPLOYMENT APP ---------#
 #Do not change the "AS deploy_image" part of the FROM
-FROM python:3.8-slim AS evaluation_image
+FROM python:3.9-slim AS evaluation_image
 
 MAINTAINER GAIA
 
@@ -75,7 +84,9 @@ COPY --from=build_image --chown=appuser:appuser /app /app
 USER appuser
 
 FROM evaluation_image AS deploy_image
-ENTRYPOINT ["python", "manage.py", "runserver", "--settings=main_app.settings_dev"]
+ENTRYPOINT ["/opt/venv/bin/python", "manage.py", "runserver", "--settings=main_app.settings_dev"]
+#CMD ["uwsgi", "--ini", "/app/uwsgi.ini"]
+#ENTRYPOINT ["/entrypoint"]
 #python manage.py runserver --settings=main_app.settings_dev
 #CMD ["gunicorn", "-k uvicorn.workers.UvicornWorker", "--log-file=-", "--graceful-timeout", "240", "--timeout", "120", "--bind=0.0.0.0:8080", "--workers=3", "server.main:app"]
 #--------- END DEVELOPER MODIFY FOR YOUR DEPLOYMENT APP ---------#

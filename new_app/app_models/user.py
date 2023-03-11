@@ -45,4 +45,5 @@ class User(BaseModel, AbstractUser):
     modified = models.DateTimeField(auto_now=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     email_confirmed = models.BooleanField(default=False)
+    gaia_admin = models.BooleanField(default=False)
     # created_by = models.ForeignKey('auth.User', default=get_current_user)

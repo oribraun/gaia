@@ -22,16 +22,18 @@ API_BASE = 'api/'
 API_AUTH_BASE = API_BASE + 'auth/'
 urlpatterns = [
     # path('api/auth/', include('knox.urls')),
-    path(API_AUTH_BASE + 'register', RegisterAPI.as_view(), name='register'),
-    path(API_AUTH_BASE + 'login', LoginAPI.as_view(), name='login'),
-    path(API_AUTH_BASE + 'logout', LogoutAPI.as_view(), name='logout'),
+    # path(API_AUTH_BASE + 'register', RegisterAPI.as_view(), name='register'),
+    # path(API_AUTH_BASE + 'login', LoginAPI.as_view(), name='login'),
+    # path(API_AUTH_BASE + 'logout', LogoutAPI.as_view(), name='logout'),
+    # path(API_AUTH_BASE + 'forgot-pass', ForgotPasswordAPI.as_view(), name='forgot-pass'),
+    # path(API_AUTH_BASE + 'password-reset/<uidb64>/<token>', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    # path(API_AUTH_BASE + 'verify-email/<uidb64>/<token>', VerifyEmailView.as_view(), name='verify_email'),
+    # path(API_AUTH_BASE + 'resend_verify_email', ResendVerifyEmailApi.as_view(), name='resend_verify_email'),
+    # path(API_AUTH_BASE + 'user', UserAPI.as_view(), name='user'),
+    # path(API_AUTH_BASE + 'change-password', ChangePasswordApi.as_view(), name='change-password'),
+
     # path(API_AUTH_BASE + 'logoutall', knox_views.LogoutAllView.as_view(), name='logoutall'),
-    path(API_AUTH_BASE + 'forgot-pass', ForgotPasswordAPI.as_view(), name='forgot-pass'),
-    path(API_AUTH_BASE + 'password-reset/<uidb64>/<token>', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path(API_AUTH_BASE + 'verify-email/<uidb64>/<token>', VerifyEmailView.as_view(), name='verify_email'),
-    path(API_AUTH_BASE + 'resend_verify_email', ResendVerifyEmailApi.as_view(), name='resend_verify_email'),
-    path(API_AUTH_BASE + 'user', UserAPI.as_view(), name='user'),
-    path(API_AUTH_BASE + 'change-password', ChangePasswordApi.as_view(), name='change-password'),
+
     # re_path(r'^getData/(\d+)$', get_data),
     # re_path(r'^getData', login_required(get_data)),
 
@@ -47,9 +49,11 @@ urlpatterns = [
     # re_path(rf'^{API_BASE}get-user-prompts$', GetUserPromptsApi.as_view()),
     re_path(rf'^{API_BASE}public$', PublicApi.as_view()),
 
-    path(API_BASE + 'auth/', include('new_app.api.auth_api.urls')),
+    path(API_BASE + 'auth/', include('new_app.api.auth_api.urls'), name='auth'),
 
-    path(API_BASE + 'co/', include('new_app.api.company_admin_api.urls')),
+    path(API_BASE + 'co/', include('new_app.api.company_admin_api.urls'), name='company'),
 
-    path(API_BASE + 'us/', include('new_app.api.user_auth_api.urls')),
+    path(API_BASE + 'us/', include('new_app.api.user_auth_api.urls'), name='user'),
+
+    path(API_BASE + 'a/', include('new_app.api.admin_api.urls'), name='admin'),
 ]

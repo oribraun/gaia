@@ -26,9 +26,9 @@ class MyUserAdmin(UserAdmin):
         (None, {'fields': ('role',)}),
     )
 
-UserAdmin.list_display += ('role','company','created','modified',)  # don't forget the commas
-UserAdmin.list_filter += ('role','company',)
-UserAdmin.fieldsets += (('Extra Fields', {'fields': ('role','company', 'email_confirmed', )}),)
+UserAdmin.list_display += ('role', 'company', 'gaia_admin', 'created', 'modified',)  # don't forget the commas
+UserAdmin.list_filter += ('role', 'company',)
+UserAdmin.fieldsets += (('Extra Fields', {'fields': ('role', 'company', 'gaia_admin', 'email_confirmed', )}),)
 admin.site.register(User, UserAdmin)
 
 

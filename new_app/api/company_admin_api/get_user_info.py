@@ -28,11 +28,10 @@ class GetUserInfoApi(BaseCompanyAuthApi):
         return JsonResponse(response.dict(), safe=False)
 
     def post(self, request, format=None):
-        user_email = request.data['user_email']
-        user_prompts_offset = request.data['user_prompts_offset']
-        user_prompts_limit = request.data['user_prompts_limit']
-        user = request.user
-        company = user.company
+        selected_item = request.data['selectedItem']
+        user_email = selected_item['email']
+        user_prompts_offset = request.data['offset']
+        user_prompts_limit = request.data['limit']
 
         ip_address = self.get_client_ip(request=request)
 
@@ -41,14 +40,21 @@ class GetUserInfoApi(BaseCompanyAuthApi):
 
     def get_user_info(self, request, user_email, user_prompts_offset, user_prompts_limit):
         response = baseHttpResponse()
-        user = request.user
-        company = user.company
 
         ip_address = self.get_client_ip(request=request)
 
-        response.total_user_prompts = UserPrompt.objects.filter(user=user).count()
+        response.total_user_prompts = UserPrompt.objects.filter(user__email=user_email).count()
         start = user_prompts_offset * user_prompts_limit
         end = start + user_prompts_limit
-        user_prompts = UserPrompt.objects.filter(user=user)[start:end].values("prompt")
+        user_prompts = UserPrompt.objects.filter(user__email=user_email)[start:end].values("prompt")
         response.user_prompts = list(user_prompts)
+
+        response.total_user_privacy_model_prompts = UserPrivacyModelPrompt.objects.filter(
+            user__email=user_email).count()
+        start = user_prompts_offset * user_prompts_limit
+        end = start + user_prompts_limit
+        user_privacy_model_prompts = UserPrivacyModelPrompt.objects.filter(user__email=user_email)[start:end] \
+            .values("prompt")
+        response.user_privacy_model_prompts = list(user_privacy_model_prompts)
+
         return response

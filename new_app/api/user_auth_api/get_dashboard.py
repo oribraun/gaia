@@ -61,6 +61,8 @@ class GetDashboardApi(BaseUserAuthApi):
         # print('user_prompt', user_prompt.values())
         user_prompts_offset = 0
         user_prompts_limit = 10
+        user_privacy_model_prompts_offset = 0
+        user_privacy_model_prompts_limit = 10
         company_users_offset = 0
         company_users_limit = 10
         admin_company_offset = 0
@@ -68,6 +70,8 @@ class GetDashboardApi(BaseUserAuthApi):
         try:
             user_prompts_offset = request.data['user_prompts_offset']
             user_prompts_limit = request.data['user_prompts_limit']
+            user_privacy_model_prompts_offset = request.data['user_privacy_model_prompts_offset']
+            user_privacy_model_prompts_limit = request.data['user_privacy_model_prompts_limit']
             company_users_offset = request.data['company_users_offset']
             company_users_limit = request.data['company_users_limit']
             admin_company_offset = request.data['admin_company_offset']
@@ -80,7 +84,16 @@ class GetDashboardApi(BaseUserAuthApi):
         user_prompts = UserPrompt.objects.filter(user=user)[start:end]\
                 .values("prompt")
         response.user_prompts = list(user_prompts)
+
+        response.total_user_privacy_model_prompts = UserPrivacyModelPrompt.objects.filter(user=user).count()
+        start = user_privacy_model_prompts_offset * user_privacy_model_prompts_limit
+        end = start + user_privacy_model_prompts_limit
+        user_privacy_model_prompts = UserPrivacyModelPrompt.objects.filter(user=user)[start:end] \
+            .values("prompt")
+        response.user_privacy_model_prompts = list(user_privacy_model_prompts)
+
         response.results_type = 'user'
+        response.gaia_admin = user.gaia_admin
         response.company_admin = company_admin
         if company:
             response.results_type = 'company_user'
@@ -96,12 +109,12 @@ class GetDashboardApi(BaseUserAuthApi):
                 .values("id", "username", "email")
             response.company_users = list(company_users)
             # https://riptutorial.com/django/example/30595/groub-by-----count-sum-django-orm-equivalent
-            company_top_prompt_users = UserPrompt.objects.values('user__id', 'user__email')\
+            company_top_prompt_users = UserPrompt.objects.filter(user__company=company).values('user__id', 'user__email')\
                 .annotate(count=Count('user__id'), sum=Sum('user__id'))\
                 .order_by('-count')
             response.company_top_prompt_users = list(company_top_prompt_users)
 
-            company_top_privacy_prompt_users = UserPrivacyModelPrompt.objects.values('user__id', 'user__email')\
+            company_top_privacy_prompt_users = UserPrivacyModelPrompt.objects.filter(company=company).values('user__id', 'user__email')\
                 .annotate(count=Count('user__id'), sum=Sum('user__id'))\
                 .order_by('-count')
             response.company_top_privacy_prompt_users = list(company_top_privacy_prompt_users)

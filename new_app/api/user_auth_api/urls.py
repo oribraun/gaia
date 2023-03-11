@@ -23,4 +23,5 @@ urlpatterns = [
     path('set-settings', UserSetSettingsApi.as_view(), name=f'{prefix}-set-settings'),
     path('get-settings', UserGetSettingsApi.as_view(), name=f'{prefix}-get-settings'),
     path('get-user-prompts', GetUserPromptsApi.as_view(), name=f'{prefix}-get-user-prompts'),
+    path('get-user-privacy-model-prompts', GetUserPromptsApi.as_view(), name=f'{prefix}-get-user-privacy-model-prompts'),
 ]
